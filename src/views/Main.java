@@ -33,7 +33,78 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        mniAlumno = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jBaja = new javax.swing.JMenuItem();
+        jAlta = new javax.swing.JMenuItem();
+        jBorrarAlumno = new javax.swing.JMenuItem();
+        mniBuscar = new javax.swing.JMenu();
+        Inscriptos = new javax.swing.JMenuItem();
+        mniSalir = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+
+        jMenuItem3.setText("jMenuItem3");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        mniAlumno.setText("Alumno");
+
+        jMenuItem2.setText("Agregar Alumno");
+        mniAlumno.add(jMenuItem2);
+
+        jBaja.setText("Dar de Baja");
+        mniAlumno.add(jBaja);
+
+        jAlta.setText("Dar de Alta");
+        mniAlumno.add(jAlta);
+
+        jBorrarAlumno.setText("Borrar Alumno");
+        jBorrarAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBorrarAlumnoActionPerformed(evt);
+            }
+        });
+        mniAlumno.add(jBorrarAlumno);
+
+        jMenuBar1.add(mniAlumno);
+
+        mniBuscar.setText("Buscar");
+
+        Inscriptos.setText("Lista de Alumnos");
+        Inscriptos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InscriptosActionPerformed(evt);
+            }
+        });
+        mniBuscar.add(Inscriptos);
+
+        jMenuBar1.add(mniBuscar);
+
+        mniSalir.setText("Salir");
+        mniSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mniSalirMouseClicked(evt);
+            }
+        });
+        mniSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniSalirActionPerformed(evt);
+            }
+        });
+
+        jMenuItem1.setText("Salir");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        mniSalir.add(jMenuItem1);
+
+        jMenuBar1.add(mniSalir);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -43,11 +114,42 @@ public class Main extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 299, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void mniSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniSalirActionPerformed
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mniSalirActionPerformed
+
+    private void mniSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniSalirMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mniSalirMouseClicked
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        int resp = javax.swing.JOptionPane.showConfirmDialog(
+            this,
+            "¿Seguro que quiere salir?",
+            "Salir",
+            javax.swing.JOptionPane.YES_NO_OPTION,
+            javax.swing.JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (resp == javax.swing.JOptionPane.YES_OPTION) {
+            dispose();
+        }         // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jBorrarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBorrarAlumnoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBorrarAlumnoActionPerformed
+
+    private void InscriptosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InscriptosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_InscriptosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -90,5 +192,16 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem Inscriptos;
+    private javax.swing.JMenuItem jAlta;
+    private javax.swing.JMenuItem jBaja;
+    private javax.swing.JMenuItem jBorrarAlumno;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenu mniAlumno;
+    private javax.swing.JMenu mniBuscar;
+    private javax.swing.JMenu mniSalir;
     // End of variables declaration//GEN-END:variables
 }
