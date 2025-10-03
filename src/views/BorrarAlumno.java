@@ -164,30 +164,12 @@ public class BorrarAlumno extends javax.swing.JInternalFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        Integer estado = null;
-        if (cbxFiltro.getSelectedIndex() == 0) {
-            estado = null;
-        } else if (cbxFiltro.getSelectedIndex() == 1) {
-            estado = 1;
-        } else if (cbxFiltro.getSelectedIndex() == 2) {
-            estado = 0;
-        }
-        List<Alumno> alumnos = alumnoData.buscarAlumnos(txtDni.getText(), txtNombre.getText(), estado);
-        llenarTabla(alumnos);
+       
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar1ActionPerformed
         // TODO add your handling code here:
-        Integer estado = null;
-        if (cbxFiltro.getSelectedIndex() == 0) {
-            estado = null;
-        } else if (cbxFiltro.getSelectedIndex() == 1) {
-            estado = 1;
-        } else if (cbxFiltro.getSelectedIndex() == 2) {
-            estado = 0;
-        }
-        List<Alumno> alumnos = alumnoData.buscarAlumnos(txtDni.getText(), txtNombre.getText(), estado);
-        llenarTabla(alumnos);
+     
     }//GEN-LAST:event_btnBuscar1ActionPerformed
 
 
