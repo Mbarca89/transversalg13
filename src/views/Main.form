@@ -22,20 +22,17 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniAagregarActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mniBaja">
+            <MenuItem class="javax.swing.JMenuItem" name="mniModificar_Alumno">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Dar de Baja"/>
+                <Property name="text" type="java.lang.String" value="Modificar Alumno"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniBajaActionPerformed"/>
-              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mniAlta">
+            <MenuItem class="javax.swing.JMenuItem" name="mniEstado">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Dar de Alta"/>
+                <Property name="text" type="java.lang.String" value="Modificar Estado"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniAltaActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniEstadoActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mniBorrar">

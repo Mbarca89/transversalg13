@@ -43,8 +43,8 @@ public class Main extends javax.swing.JFrame {
         mnbMenu = new javax.swing.JMenuBar();
         mnuAlumno = new javax.swing.JMenu();
         mniAagregar = new javax.swing.JMenuItem();
-        mniBaja = new javax.swing.JMenuItem();
-        mniAlta = new javax.swing.JMenuItem();
+        mniModificar_Alumno = new javax.swing.JMenuItem();
+        mniEstado = new javax.swing.JMenuItem();
         mniBorrar = new javax.swing.JMenuItem();
         mnuBuscar = new javax.swing.JMenu();
         mniAlumnos = new javax.swing.JMenuItem();
@@ -77,21 +77,16 @@ public class Main extends javax.swing.JFrame {
         });
         mnuAlumno.add(mniAagregar);
 
-        mniBaja.setText("Dar de Baja");
-        mniBaja.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniBajaActionPerformed(evt);
-            }
-        });
-        mnuAlumno.add(mniBaja);
+        mniModificar_Alumno.setText("Modificar Alumno");
+        mnuAlumno.add(mniModificar_Alumno);
 
-        mniAlta.setText("Dar de Alta");
-        mniAlta.addActionListener(new java.awt.event.ActionListener() {
+        mniEstado.setText("Modificar Estado");
+        mniEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniAltaActionPerformed(evt);
+                mniEstadoActionPerformed(evt);
             }
         });
-        mnuAlumno.add(mniAlta);
+        mnuAlumno.add(mniEstado);
 
         mniBorrar.setText("Borrar Alumno");
         mniBorrar.addActionListener(new java.awt.event.ActionListener() {
@@ -202,17 +197,11 @@ public class Main extends javax.swing.JFrame {
         abrirYCentrar(agregar);
     }//GEN-LAST:event_mniAagregarActionPerformed
 
-    private void mniBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniBajaActionPerformed
+    private void mniEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEstadoActionPerformed
         // TODO add your handling code here:
-        DarDeBaja baja = new DarDeBaja();
+        Modificar_Estado baja = new Modificar_Estado();
         abrirYCentrar(baja);
-    }//GEN-LAST:event_mniBajaActionPerformed
-
-    private void mniAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAltaActionPerformed
-        // TODO add your handling code here:
-        DarDeAlta alta = new DarDeAlta();
-        abrirYCentrar(alta);
-    }//GEN-LAST:event_mniAltaActionPerformed
+    }//GEN-LAST:event_mniEstadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -266,11 +255,11 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuBar mnbMenu;
     private javax.swing.JMenuItem mniAagregar;
-    private javax.swing.JMenuItem mniAlta;
     private javax.swing.JMenuItem mniAlumnos;
-    private javax.swing.JMenuItem mniBaja;
     private javax.swing.JMenuItem mniBorrar;
+    private javax.swing.JMenuItem mniEstado;
     private javax.swing.JMenuItem mniMaterias;
+    private javax.swing.JMenuItem mniModificar_Alumno;
     private javax.swing.JMenuItem mniSalir;
     private javax.swing.JMenu mnuAlumno;
     private javax.swing.JMenu mnuBuscar;
