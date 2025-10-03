@@ -14,10 +14,11 @@ import java.sql.SQLException;
  * @author Mauricio
  */
 public class DbConnection {
+
     private String url;
     private String user;
     private String password;
-    
+
     private Connection connection = null;
 
     public DbConnection(String url, String user, String password) {
@@ -25,17 +26,17 @@ public class DbConnection {
         this.user = user;
         this.password = password;
     }
-    
-    public Connection establishConnection () {
-        if (connection == null) {
-            try {
+
+    public Connection establishConnection() {
+        try {
+            if (connection == null || connection.isClosed() || !connection.isValid(2)) {
                 Class.forName("org.mariadb.jdbc.Driver");
-                connection = DriverManager.getConnection(url,user,password);
+                connection = DriverManager.getConnection(url, user, password);
                 System.out.println("Conetado a la BD correctamente.");
-            } catch (SQLException | ClassNotFoundException e) {
-                System.out.println("Error al conectarse a la base de datos: " + e.getMessage());
-                e.printStackTrace();
             }
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println("Error al conectarse a la base de datos: " + e.getMessage());
+            e.printStackTrace();
         }
         return connection;
     }

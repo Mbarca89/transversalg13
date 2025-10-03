@@ -8,12 +8,12 @@ package views;
  *
  * @author Sistemas
  */
-public class Agregar_Alumno extends javax.swing.JInternalFrame {
+public class AgregarAlumno extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Agregar_Alumno
      */
-    public Agregar_Alumno() {
+    public AgregarAlumno() {
         initComponents();
     }
 

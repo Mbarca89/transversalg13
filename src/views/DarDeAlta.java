@@ -8,12 +8,12 @@ package views;
  *
  * @author Sistemas
  */
-public class Dar_de_Baja extends javax.swing.JInternalFrame {
+public class DarDeAlta extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form Dar_de_Baja
+     * Creates new form Dar_de_Alta
      */
-    public Dar_de_Baja() {
+    public DarDeAlta() {
         initComponents();
     }
 
@@ -26,13 +26,20 @@ public class Dar_de_Baja extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnBorrar = new javax.swing.JButton();
         btnSalir2 = new javax.swing.JButton();
         srcTabla = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         lblTitulo = new javax.swing.JLabel();
         lblDni = new javax.swing.JLabel();
         txtDni = new javax.swing.JTextField();
-        btnBorrar = new javax.swing.JButton();
+
+        btnBorrar.setText("Dar de Alta");
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarActionPerformed(evt);
+            }
+        });
 
         btnSalir2.setText("Salir");
         btnSalir2.addActionListener(new java.awt.event.ActionListener() {
@@ -55,20 +62,13 @@ public class Dar_de_Baja extends javax.swing.JInternalFrame {
         srcTabla.setViewportView(jTable1);
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTitulo.setText("Dar de baja Alumno");
+        lblTitulo.setText("Dar de alta Alumno");
 
         lblDni.setText("DNI");
 
         txtDni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDniActionPerformed(evt);
-            }
-        });
-
-        btnBorrar.setText("Dar de Baja");
-        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBorrarActionPerformed(evt);
             }
         });
 
@@ -80,7 +80,7 @@ public class Dar_de_Baja extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addComponent(srcTabla, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE))
+                        .addComponent(srcTabla))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -89,14 +89,14 @@ public class Dar_de_Baja extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(145, 145, 145)
+                                .addGap(143, 143, 143)
                                 .addComponent(btnBorrar)
-                                .addGap(95, 95, 95)
+                                .addGap(97, 97, 97)
                                 .addComponent(btnSalir2))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(182, 182, 182)
                                 .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 72, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -109,15 +109,19 @@ public class Dar_de_Baja extends javax.swing.JInternalFrame {
                     .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addComponent(srcTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBorrar)
-                    .addComponent(btnSalir2))
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSalir2)
+                    .addComponent(btnBorrar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnSalir2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir2ActionPerformed
         // TODO add your handling code here:
@@ -127,11 +131,6 @@ public class Dar_de_Baja extends javax.swing.JInternalFrame {
     private void txtDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDniActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDniActionPerformed
-
-    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_btnBorrarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -6,6 +6,8 @@
 package views;
 
 import java.sql.Connection;
+import javax.swing.JInternalFrame;
+import persistance.AlumnoData;
 import persistance.DbConnection;
 
 /**
@@ -15,12 +17,15 @@ import persistance.DbConnection;
 public class Main extends javax.swing.JFrame {
 
     private static DbConnection connection;
+    private final AlumnoData alumnoData;
     
     
     /**
      * Creates new form Main
      */
     public Main() {
+        connection = new DbConnection("jdbc:mariadb://localhost/universidad_gp13", "root", ""); 
+        alumnoData = new AlumnoData(connection);
         initComponents();
     }
 
@@ -34,102 +39,138 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        mniAlumno = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jBaja = new javax.swing.JMenuItem();
-        jAlta = new javax.swing.JMenuItem();
-        jBorrarAlumno = new javax.swing.JMenuItem();
-        mniBuscar = new javax.swing.JMenu();
-        Inscriptos = new javax.swing.JMenuItem();
-        mniSalir = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        escritorio = new javax.swing.JDesktopPane();
+        mnbMenu = new javax.swing.JMenuBar();
+        mnuAlumno = new javax.swing.JMenu();
+        mniAagregar = new javax.swing.JMenuItem();
+        mniBaja = new javax.swing.JMenuItem();
+        mniAlta = new javax.swing.JMenuItem();
+        mniBorrar = new javax.swing.JMenuItem();
+        mnuBuscar = new javax.swing.JMenu();
+        mniAlumnos = new javax.swing.JMenuItem();
+        mniMaterias = new javax.swing.JMenuItem();
+        mnuSalir = new javax.swing.JMenu();
+        mniSalir = new javax.swing.JMenuItem();
 
         jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        mniAlumno.setText("Alumno");
+        javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
+        escritorio.setLayout(escritorioLayout);
+        escritorioLayout.setHorizontalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 950, Short.MAX_VALUE)
+        );
+        escritorioLayout.setVerticalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 511, Short.MAX_VALUE)
+        );
 
-        jMenuItem2.setText("Agregar Alumno");
-        mniAlumno.add(jMenuItem2);
+        mnuAlumno.setText("Alumno");
 
-        jBaja.setText("Dar de Baja");
-        mniAlumno.add(jBaja);
-
-        jAlta.setText("Dar de Alta");
-        mniAlumno.add(jAlta);
-
-        jBorrarAlumno.setText("Borrar Alumno");
-        jBorrarAlumno.addActionListener(new java.awt.event.ActionListener() {
+        mniAagregar.setText("Agregar Alumno");
+        mniAagregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBorrarAlumnoActionPerformed(evt);
+                mniAagregarActionPerformed(evt);
             }
         });
-        mniAlumno.add(jBorrarAlumno);
+        mnuAlumno.add(mniAagregar);
 
-        jMenuBar1.add(mniAlumno);
-
-        mniBuscar.setText("Buscar");
-
-        Inscriptos.setText("Lista de Alumnos");
-        Inscriptos.addActionListener(new java.awt.event.ActionListener() {
+        mniBaja.setText("Dar de Baja");
+        mniBaja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                InscriptosActionPerformed(evt);
+                mniBajaActionPerformed(evt);
             }
         });
-        mniBuscar.add(Inscriptos);
+        mnuAlumno.add(mniBaja);
 
-        jMenuBar1.add(mniBuscar);
+        mniAlta.setText("Dar de Alta");
+        mniAlta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniAltaActionPerformed(evt);
+            }
+        });
+        mnuAlumno.add(mniAlta);
+
+        mniBorrar.setText("Borrar Alumno");
+        mniBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniBorrarActionPerformed(evt);
+            }
+        });
+        mnuAlumno.add(mniBorrar);
+
+        mnbMenu.add(mnuAlumno);
+
+        mnuBuscar.setText("Buscar");
+
+        mniAlumnos.setText("Alumnos");
+        mniAlumnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniAlumnosActionPerformed(evt);
+            }
+        });
+        mnuBuscar.add(mniAlumnos);
+
+        mniMaterias.setText("Materias");
+        mnuBuscar.add(mniMaterias);
+
+        mnbMenu.add(mnuBuscar);
+
+        mnuSalir.setText("Salir");
+        mnuSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnuSalirMouseClicked(evt);
+            }
+        });
+        mnuSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuSalirActionPerformed(evt);
+            }
+        });
 
         mniSalir.setText("Salir");
-        mniSalir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mniSalirMouseClicked(evt);
-            }
-        });
         mniSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniSalirActionPerformed(evt);
             }
         });
+        mnuSalir.add(mniSalir);
 
-        jMenuItem1.setText("Salir");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        mniSalir.add(jMenuItem1);
+        mnbMenu.add(mnuSalir);
 
-        jMenuBar1.add(mniSalir);
-
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(mnbMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 299, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void mnuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSalirActionPerformed
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuSalirActionPerformed
+
+    private void mnuSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuSalirMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuSalirMouseClicked
+
     private void mniSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniSalirActionPerformed
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mniSalirActionPerformed
-
-    private void mniSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniSalirMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mniSalirMouseClicked
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         int resp = javax.swing.JOptionPane.showConfirmDialog(
             this,
             "¿Seguro que quiere salir?",
@@ -141,24 +182,43 @@ public class Main extends javax.swing.JFrame {
         if (resp == javax.swing.JOptionPane.YES_OPTION) {
             dispose();
         }         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_mniSalirActionPerformed
 
-    private void jBorrarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBorrarAlumnoActionPerformed
+    private void mniBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniBorrarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jBorrarAlumnoActionPerformed
+        BorrarAlumno borrar = new BorrarAlumno();
+        abrirYCentrar(borrar);
+    }//GEN-LAST:event_mniBorrarActionPerformed
 
-    private void InscriptosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InscriptosActionPerformed
+    private void mniAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAlumnosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_InscriptosActionPerformed
+        BuscarAlumno buscar = new BuscarAlumno(alumnoData);
+        abrirYCentrar(buscar);
+    }//GEN-LAST:event_mniAlumnosActionPerformed
+
+    private void mniAagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAagregarActionPerformed
+        // TODO add your handling code here:
+        AgregarAlumno agregar = new AgregarAlumno();
+        abrirYCentrar(agregar);
+    }//GEN-LAST:event_mniAagregarActionPerformed
+
+    private void mniBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniBajaActionPerformed
+        // TODO add your handling code here:
+        DarDeBaja baja = new DarDeBaja();
+        abrirYCentrar(baja);
+    }//GEN-LAST:event_mniBajaActionPerformed
+
+    private void mniAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAltaActionPerformed
+        // TODO add your handling code here:
+        DarDeAlta alta = new DarDeAlta();
+        abrirYCentrar(alta);
+    }//GEN-LAST:event_mniAltaActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
-        connection = new DbConnection("jdbc:mariadb://localhost/universidad_gp13", "root", "");
-        connection.establishConnection();
-        
+               
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -190,18 +250,30 @@ public class Main extends javax.swing.JFrame {
             }
         });
     }
+    
+    private void abrirYCentrar(JInternalFrame frame) {
+        escritorio.add(frame);
+        frame.pack(); 
+        frame.setVisible(true);
+
+        int x = (escritorio.getWidth() - frame.getWidth()) / 2;
+        int y = (escritorio.getHeight() - frame.getHeight()) / 2;
+        frame.setLocation(x, y);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem Inscriptos;
-    private javax.swing.JMenuItem jAlta;
-    private javax.swing.JMenuItem jBaja;
-    private javax.swing.JMenuItem jBorrarAlumno;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenu mniAlumno;
-    private javax.swing.JMenu mniBuscar;
-    private javax.swing.JMenu mniSalir;
+    private javax.swing.JMenuBar mnbMenu;
+    private javax.swing.JMenuItem mniAagregar;
+    private javax.swing.JMenuItem mniAlta;
+    private javax.swing.JMenuItem mniAlumnos;
+    private javax.swing.JMenuItem mniBaja;
+    private javax.swing.JMenuItem mniBorrar;
+    private javax.swing.JMenuItem mniMaterias;
+    private javax.swing.JMenuItem mniSalir;
+    private javax.swing.JMenu mnuAlumno;
+    private javax.swing.JMenu mnuBuscar;
+    private javax.swing.JMenu mnuSalir;
     // End of variables declaration//GEN-END:variables
 }

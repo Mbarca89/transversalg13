@@ -8,12 +8,12 @@ package views;
  *
  * @author Sistemas
  */
-public class Borrar_Alumno extends javax.swing.JInternalFrame {
+public class DarDeBaja extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form Borrar_Alumno
+     * Creates new form Dar_de_Baja
      */
-    public Borrar_Alumno() {
+    public DarDeBaja() {
         initComponents();
     }
 
@@ -26,31 +26,13 @@ public class Borrar_Alumno extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnSalir2 = new javax.swing.JButton();
+        srcTabla = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         lblTitulo = new javax.swing.JLabel();
         lblDni = new javax.swing.JLabel();
         txtDni = new javax.swing.JTextField();
         btnBorrar = new javax.swing.JButton();
-        btnSalir2 = new javax.swing.JButton();
-        srcTabla = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-
-        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTitulo.setText("Borrar Alumno");
-
-        lblDni.setText("DNI");
-
-        txtDni.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDniActionPerformed(evt);
-            }
-        });
-
-        btnBorrar.setText("Borrar");
-        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBorrarActionPerformed(evt);
-            }
-        });
 
         btnSalir2.setText("Salir");
         btnSalir2.addActionListener(new java.awt.event.ActionListener() {
@@ -72,6 +54,24 @@ public class Borrar_Alumno extends javax.swing.JInternalFrame {
         ));
         srcTabla.setViewportView(jTable1);
 
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTitulo.setText("Dar de baja Alumno");
+
+        lblDni.setText("DNI");
+
+        txtDni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDniActionPerformed(evt);
+            }
+        });
+
+        btnBorrar.setText("Dar de Baja");
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -80,43 +80,49 @@ public class Borrar_Alumno extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addComponent(srcTabla, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE))
+                        .addComponent(srcTabla, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(125, 125, 125)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(164, 164, 164)
+                                .addComponent(lblDni)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(145, 145, 145)
                                 .addComponent(btnBorrar)
-                                .addGap(106, 106, 106)
+                                .addGap(95, 95, 95)
                                 .addComponent(btnSalir2))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(lblDni)
-                                    .addGap(37, 37, 37)
-                                    .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(182, 182, 182)
+                                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDni)
                     .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addComponent(srcTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBorrar)
                     .addComponent(btnSalir2))
-                .addGap(75, 75, 75))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSalir2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir2ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnSalir2ActionPerformed
 
     private void txtDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDniActionPerformed
         // TODO add your handling code here:
@@ -124,19 +130,12 @@ public class Borrar_Alumno extends javax.swing.JInternalFrame {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         // TODO add your handling code here:
-    
-    }//GEN-LAST:event_btnBorrarActionPerformed
 
-    private void btnSalir2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir2ActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_btnSalir2ActionPerformed
+    }//GEN-LAST:event_btnBorrarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBorrar;
-    private javax.swing.JButton btnSalir;
-    private javax.swing.JButton btnSalir1;
     private javax.swing.JButton btnSalir2;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblDni;
