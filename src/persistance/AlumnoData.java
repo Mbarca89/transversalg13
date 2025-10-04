@@ -50,7 +50,28 @@ public class AlumnoData {
     }
     
     public void actualizarAlumno(Alumno a){
+        String sql= "UPDATE alumno SET dni = ?, nombre = ?, apellido = ?, fechaNacimiento = ?, estado = ? WHERE idAlumno = ?";
         
+        try {
+        PreparedStatement ps = conectado.prepareStatement(sql);
+        ps.setString(1, a.getDni());
+        ps.setString(2, a.getNombre());
+        ps.setString(3, a.getApellido());
+        ps.setDate(4, Date.valueOf(a.getFechaNacimiento()));
+        ps.setBoolean(5, a.getEstado());
+        ps.setInt(6, a.getIdAlumno());
+
+        int filasActualizadas=ps.executeUpdate();
+
+        if (filasActualizadas > 0) {
+            System.out.println("Alumno actualizado con éxito.");
+        } else {
+            System.out.println("No se encontró el alumno con ID: " + a.getIdAlumno());
+        }
+            
+        }catch (SQLException ex){
+            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     
