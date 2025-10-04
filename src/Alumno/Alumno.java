@@ -42,7 +42,7 @@ public class Alumno{
         return fechaNacimiento;
     }
 
-    public boolean isestado() {
+    public boolean getEstado() {
         return estado;
     }
 
