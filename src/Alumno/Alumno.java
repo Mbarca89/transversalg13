@@ -20,6 +20,9 @@ public class Alumno{
         this.estado = estado;
     }
 
+    public Alumno() {
+    }
+
     // Getters //
     
     public int getIdAlumno() {
@@ -71,8 +74,6 @@ public class Alumno{
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-    
-    
     
     
     

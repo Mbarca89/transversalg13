@@ -4,17 +4,38 @@
  */
 package views;
 
+import Alumno.Alumno;
+import java.awt.HeadlessException;
+import persistance.AlumnoData;
+
 /**
  *
- * @author Sistemas
+ * @author Manuel Zuñiga
  */
 public class AgregarAlumno extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Agregar_Alumno
      */
-    public AgregarAlumno() {
+    private final AlumnoData alumnoData;
+
+    public AgregarAlumno(AlumnoData alumnoData) {
+        this.alumnoData = alumnoData;
         initComponents();
+
+        txtID.setEditable(false);
+        txtID.setFocusable(false);
+        txtID.setVisible(false);
+        lblID.setVisible(false);
+    }
+
+    private void limpiarFormulario() {
+        txtID.setText("");
+        txtDNI.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
+        jdcFecha.setDate(null);
+        txtDNI.requestFocus();
     }
 
     /**
@@ -88,18 +109,14 @@ public class AgregarAlumno extends javax.swing.JInternalFrame {
                 .addComponent(lblTitulo)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblFecha_Nacimiento)
-                            .addComponent(lblNombre)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblApellido, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblDni, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblID, javax.swing.GroupLayout.Alignment.TRAILING))))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lblFecha_Nacimiento)
+                        .addComponent(lblNombre))
+                    .addComponent(lblApellido, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblDni, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblID, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,18 +184,64 @@ public class AgregarAlumno extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIDActionPerformed
-
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-      
+        try {
+            String dni = txtDNI.getText().trim();
+            String nombre = txtNombre.getText().trim();
+            String apellido = txtApellido.getText().trim();
+            java.util.Date utilDate = jdcFecha.getDate();
+
+            if (dni.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || utilDate == null) {
+                javax.swing.JOptionPane.showMessageDialog(this,
+                        "Completá DNI, Nombre, Apellido y Fecha de Nacimiento.",
+                        "Faltan datos", javax.swing.JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            if (!dni.matches("\\d+")) {
+                javax.swing.JOptionPane.showMessageDialog(this,
+                        "El DNI debe contener solo números.",
+                        "Dato inválido", javax.swing.JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            java.time.LocalDate fechaNac = utilDate.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+
+            Alumno a = new Alumno();
+            a.setDni(dni);
+            a.setNombre(nombre);
+            a.setApellido(apellido);
+            a.setFechaNacimiento(fechaNac);
+            a.setEstado(true);
+
+            alumnoData.guardarAlumno(a);
+
+            if (a.getIdAlumno() > 0) {
+                txtID.setText(String.valueOf(a.getIdAlumno()));
+                javax.swing.JOptionPane.showMessageDialog(this,
+                        "Alumno "+a.getApellido()+" guardado con éxito.",
+                        "Éxito", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+
+                limpiarFormulario();
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this,
+                        "No se pudo confirmar el guardado (ID no asignado).",
+                        "Atención", javax.swing.JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (HeadlessException ex) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Ocurrió un error al guardar: " + ex.getMessage(),
+                    "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIDActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

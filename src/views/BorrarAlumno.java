@@ -4,6 +4,13 @@
  */
 package views;
 
+import Alumno.Alumno;
+import persistance.AlumnoData;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Sistemas
@@ -13,8 +20,50 @@ public class BorrarAlumno extends javax.swing.JInternalFrame {
     /**
      * Creates new form Borrar_Alumno
      */
-    public BorrarAlumno() {
+    private final AlumnoData alumnoData;
+    private DefaultTableModel modeloTabla;
+
+    public BorrarAlumno(AlumnoData alumnoData) {
+        this.alumnoData = alumnoData;
         initComponents();
+        generarTabla();
+    }
+
+    private void generarTabla() {
+        modeloTabla = new DefaultTableModel(
+                new Object[]{"ID", "DNI", "Apellido", "Nombre", "Fecha de nacimiento", "Estado"}, 0
+        ) {
+            @Override
+            public boolean isCellEditable(int r, int c) {
+                return false;
+            }
+
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                return switch (columnIndex) {
+                    case 0 ->
+                        Integer.class;  // ID
+                    default ->
+                        String.class;
+                };
+            }
+        };
+        tblLista.setModel(modeloTabla);
+    }
+
+    private void llenarTabla(List<Alumno> datos) {
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        modeloTabla.setRowCount(0);
+        for (Alumno a : datos) {
+            modeloTabla.addRow(new Object[]{
+                a.getIdAlumno(),
+                a.getDni(),
+                a.getApellido(),
+                a.getNombre(),
+                a.getFechaNacimiento().format(fmt),
+                a.getEstado() ? "Activo" : "Inactivo"
+            });
+        }
     }
 
     /**
@@ -131,11 +180,10 @@ public class BorrarAlumno extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblDni)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnBuscar1)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar1)
+                    .addComponent(lblDni))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(scrLista, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -154,7 +202,36 @@ public class BorrarAlumno extends javax.swing.JInternalFrame {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         // TODO add your handling code here:
-    
+        int fila = tblLista.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccioná un alumno de la tabla.",
+                    "Atención", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int id = (int) modeloTabla.getValueAt(fila, 0);
+        String dni = (String) modeloTabla.getValueAt(fila, 1);
+        String nombre = (String) modeloTabla.getValueAt(fila, 3);
+
+        int resp = JOptionPane.showConfirmDialog(this,
+                "¿Eliminar definitivamente al alumno?\n"
+                + "ID: " + id + "  DNI: " + dni + "  Nombre: " + nombre,
+                "Confirmar borrado", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+
+        if (resp != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        boolean ok = alumnoData.eliminarAlumnoFisico(id);
+        if (ok) {
+            modeloTabla.removeRow(fila);
+            JOptionPane.showMessageDialog(this, "Alumno eliminado.",
+                    "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "No se pudo eliminar. Verificá que no tenga inscripciones u otras referencias.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnSalir2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir2ActionPerformed
@@ -164,12 +241,19 @@ public class BorrarAlumno extends javax.swing.JInternalFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-       
+        btnBuscar1ActionPerformed(evt);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar1ActionPerformed
         // TODO add your handling code here:
-     
+        String dni = txtDni.getText().trim();
+        List<Alumno> lista = alumnoData.buscarAlumnos(dni, "", null);
+        if (lista.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Sin resultados.", "Info",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+        llenarTabla(lista);
+
     }//GEN-LAST:event_btnBuscar1ActionPerformed
 
 

@@ -202,24 +202,30 @@ public class BuscarAlumno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbxFiltroActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
         Integer estado = null;
-        if (cbxFiltro.getSelectedIndex() == 0) {
-            estado = null;
-        } else if (cbxFiltro.getSelectedIndex() == 1) {
-            estado = 1;
-        } else if (cbxFiltro.getSelectedIndex() == 2) {
-            estado = 0;
+        switch (cbxFiltro.getSelectedIndex()) {
+            case 0 ->
+                estado = null;
+            case 1 ->
+                estado = 1;
+            case 2 ->
+                estado = 0;
+            default -> {
+            }
         }
+
         List<Alumno> alumnos = alumnoData.buscarAlumnos(txtDni.getText(), txtNombre.getText(), estado);
         llenarTabla(alumnos);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        // TODO add your handling code here:
         txtDni.setText("");
         txtNombre.setText("");
         cbxFiltro.setSelectedIndex(0);
+
+        modeloTabla.setRowCount(0);
+
+        txtDni.requestFocus();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     public void llenarTabla(List<Alumno> datos) {
@@ -232,7 +238,7 @@ public class BuscarAlumno extends javax.swing.JInternalFrame {
                 a.getApellido(),
                 a.getNombre(),
                 a.getFechaNacimiento().format(formatter),
-                a.isestado() ? "Activo" : "Inactivo"
+                a.getEstado() ? "Activo" : "Inactivo"
             });
         }
 

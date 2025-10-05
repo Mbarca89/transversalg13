@@ -18,13 +18,12 @@ public class Main extends javax.swing.JFrame {
 
     private static DbConnection connection;
     private final AlumnoData alumnoData;
-    
-    
+
     /**
      * Creates new form Main
      */
     public Main() {
-        connection = new DbConnection("jdbc:mariadb://localhost/universidad_gp13", "root", ""); 
+        connection = new DbConnection("jdbc:mariadb://localhost/universidad_gp13", "root", "");
         alumnoData = new AlumnoData(connection);
         initComponents();
     }
@@ -78,6 +77,11 @@ public class Main extends javax.swing.JFrame {
         mnuAlumno.add(mniAagregar);
 
         mniModificar_Alumno.setText("Modificar Alumno");
+        mniModificar_Alumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniModificar_AlumnoActionPerformed(evt);
+            }
+        });
         mnuAlumno.add(mniModificar_Alumno);
 
         mniEstado.setText("Modificar Estado");
@@ -157,8 +161,7 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mnuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSalirActionPerformed
-
-        // TODO add your handling code here:
+// TODO add your handling code here:
     }//GEN-LAST:event_mnuSalirActionPerformed
 
     private void mnuSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuSalirMouseClicked
@@ -167,11 +170,11 @@ public class Main extends javax.swing.JFrame {
 
     private void mniSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniSalirActionPerformed
         int resp = javax.swing.JOptionPane.showConfirmDialog(
-            this,
-            "¿Seguro que quiere salir?",
-            "Salir",
-            javax.swing.JOptionPane.YES_NO_OPTION,
-            javax.swing.JOptionPane.QUESTION_MESSAGE
+                this,
+                "¿Seguro que quiere salir?",
+                "Salir",
+                javax.swing.JOptionPane.YES_NO_OPTION,
+                javax.swing.JOptionPane.QUESTION_MESSAGE
         );
 
         if (resp == javax.swing.JOptionPane.YES_OPTION) {
@@ -181,7 +184,7 @@ public class Main extends javax.swing.JFrame {
 
     private void mniBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniBorrarActionPerformed
         // TODO add your handling code here:
-        BorrarAlumno borrar = new BorrarAlumno();
+        BorrarAlumno borrar = new BorrarAlumno(alumnoData);
         abrirYCentrar(borrar);
     }//GEN-LAST:event_mniBorrarActionPerformed
 
@@ -193,21 +196,27 @@ public class Main extends javax.swing.JFrame {
 
     private void mniAagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAagregarActionPerformed
         // TODO add your handling code here:
-        AgregarAlumno agregar = new AgregarAlumno();
+        AgregarAlumno agregar = new AgregarAlumno(alumnoData);
         abrirYCentrar(agregar);
     }//GEN-LAST:event_mniAagregarActionPerformed
 
     private void mniEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEstadoActionPerformed
         // TODO add your handling code here:
-        Modificar_Estado baja = new Modificar_Estado();
-        abrirYCentrar(baja);
+        Modificar_Estado frame = new Modificar_Estado(alumnoData);
+        abrirYCentrar(frame);
     }//GEN-LAST:event_mniEstadoActionPerformed
+
+    private void mniModificar_AlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniModificar_AlumnoActionPerformed
+        // TODO add your handling code here:
+        Modificar_Alumno mod = new Modificar_Alumno(alumnoData);
+        abrirYCentrar(mod);
+    }//GEN-LAST:event_mniModificar_AlumnoActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-               
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -230,19 +239,18 @@ public class Main extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-            
-        /* Create and display the form */ 
-        
+
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Main().setVisible(true);
             }
         });
     }
-    
+
     private void abrirYCentrar(JInternalFrame frame) {
         escritorio.add(frame);
-        frame.pack(); 
+        frame.pack();
         frame.setVisible(true);
 
         int x = (escritorio.getWidth() - frame.getWidth()) / 2;

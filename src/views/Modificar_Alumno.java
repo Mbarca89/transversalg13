@@ -4,17 +4,46 @@
  */
 package views;
 
+import Alumno.Alumno;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import javax.swing.JOptionPane;
+import persistance.AlumnoData;
+
 /**
  *
  * @author Nicolino Uchiha
  */
 public class Modificar_Alumno extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form Modificar_Alumno
-     */
-    public Modificar_Alumno() {
+    private final AlumnoData alumnoData;
+    private Alumno alumnoActual;
+
+    public Modificar_Alumno(AlumnoData alumnoData) {
+        this.alumnoData = alumnoData;
         initComponents();
+
+        txtID.setEditable(false);
+        txtID.setFocusable(false);
+    }
+
+    private void cargarAlumnoEnFormulario(Alumno a) {
+        alumnoActual = a;
+        txtID.setText(String.valueOf(a.getIdAlumno()));
+        txtDNI.setText(a.getDni());
+        txtApellido.setText(a.getApellido());
+        txtNombre.setText(a.getNombre());
+        java.util.Date utilDate = java.util.Date.from(a.getFechaNacimiento().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        jdcFecha.setDate(utilDate);
+    }
+
+    private void limpiarFormulario() {
+        alumnoActual = null;
+        txtID.setText("");
+        txtDNI.setText("");
+        txtApellido.setText("");
+        txtNombre.setText("");
+        jdcFecha.setDate(null);
     }
 
     /**
@@ -292,10 +321,59 @@ public class Modificar_Alumno extends javax.swing.JInternalFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
+        if (alumnoActual == null) {
+            JOptionPane.showMessageDialog(this, "Primero buscá un alumno por DNI.",
+                    "Atención", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String dni = txtDNI.getText().trim();
+        String apellido = txtApellido.getText().trim();
+        String nombre = txtNombre.getText().trim();
+        java.util.Date utilDate = jdcFecha.getDate();
+
+        if (dni.isEmpty() || apellido.isEmpty() || nombre.isEmpty() || utilDate == null) {
+            JOptionPane.showMessageDialog(this,
+                    "Completá DNI, Apellido, Nombre y Fecha de Nacimiento.",
+                    "Faltan datos", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (!dni.matches("\\d+")) {
+            JOptionPane.showMessageDialog(this, "El DNI debe contener solo números.",
+                    "Dato inválido", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        LocalDate fechaNac = utilDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        // Actualizar objeto en memoria (conservamos estado actual)
+        alumnoActual.setDni(dni);
+        alumnoActual.setApellido(apellido);
+        alumnoActual.setNombre(nombre);
+        alumnoActual.setFechaNacimiento(fechaNac);
+
+        // Persistir
+        alumnoData.actualizarAlumno(alumnoActual);
+
+        JOptionPane.showMessageDialog(this, "Alumno actualizado con éxito.",
+                "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar1ActionPerformed
-        // TODO add your handling code here:
+        String dni = txtDni1.getText().trim();
+        if (dni.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingresá un DNI para buscar.",
+                    "Faltan datos", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        Alumno a = alumnoData.obtenerAlumnoPorDni(dni);
+        if (a == null) {
+            JOptionPane.showMessageDialog(this, "No se encontró un alumno con DNI " + dni,
+                    "Sin resultados", JOptionPane.INFORMATION_MESSAGE);
+            limpiarFormulario();
+            return;
+        }
+        cargarAlumnoEnFormulario(a);
 
     }//GEN-LAST:event_btnBuscar1ActionPerformed
 

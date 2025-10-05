@@ -4,17 +4,95 @@
  */
 package views;
 
+import Alumno.Alumno;
+import persistance.AlumnoData;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
- * @author Sistemas
+ * @author Zuñiga Manuel
  */
 public class Modificar_Estado extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Dar_de_Baja
      */
-    public Modificar_Estado() {
+    private final AlumnoData alumnoData;
+    private DefaultTableModel modeloTabla;
+
+    public Modificar_Estado(AlumnoData alumnoData) {
+        this.alumnoData = alumnoData;
         initComponents();
+        cbxEstadoFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Activo", "Inactivo"}));
+        jComboBox1.addActionListener(e -> actualizarUIFiltro());
+        actualizarUIFiltro();
+        generarTabla();
+    }
+
+    private void generarTabla() {
+        modeloTabla = new DefaultTableModel(
+                new Object[]{"ID", "DNI", "Apellido", "Nombre", "Fecha de nacimiento", "Estado"}, 0
+        ) {
+            @Override
+            public boolean isCellEditable(int r, int c) {
+                return false;
+            }
+
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                return switch (columnIndex) {
+                    case 0 ->
+                        Integer.class; // ID
+                    default ->
+                        String.class;
+                };
+            }
+        };
+        tblLista.setModel(modeloTabla);
+    }
+
+    private void llenarTabla(List<Alumno> datos) {
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        modeloTabla.setRowCount(0);
+        for (Alumno a : datos) {
+            modeloTabla.addRow(new Object[]{
+                a.getIdAlumno(),
+                a.getDni(),
+                a.getApellido(),
+                a.getNombre(),
+                a.getFechaNacimiento().format(fmt),
+                a.getEstado() ? "Activo" : "Inactivo"
+            });
+        }
+    }
+
+    private Integer parseEstado(String s) {
+        if (s == null) {
+            return null;
+        }
+        String x = s.trim().toLowerCase();
+        if (x.isEmpty()) {
+            return null;
+        }
+        if (x.equals("1") || x.equals("true") || x.equals("activo") || x.equals("alta") || x.equals("de alta")) {
+            return 1;
+        }
+        if (x.equals("0") || x.equals("false") || x.equals("inactivo") || x.equals("baja") || x.equals("de baja")) {
+            return 0;
+        }
+        return null;
+    }
+
+    private void actualizarUIFiltro() {
+        boolean esEstado = jComboBox1.getSelectedItem().toString().equals("Estado");
+        txtDni.setVisible(!esEstado);
+        if (esEstado) {
+            txtDni.setText("");
+        }
+        cbxEstadoFiltro.setVisible(esEstado);
     }
 
     /**
@@ -37,6 +115,7 @@ public class Modificar_Estado extends javax.swing.JInternalFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         btnBuscar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
+        cbxEstadoFiltro = new javax.swing.JComboBox<>();
 
         btnSalir2.setText("Salir");
         btnSalir2.addActionListener(new java.awt.event.ActionListener() {
@@ -93,6 +172,11 @@ public class Modificar_Estado extends javax.swing.JInternalFrame {
         });
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DNI", "Apellido", "Nombre", "Estado" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -105,6 +189,13 @@ public class Modificar_Estado extends javax.swing.JInternalFrame {
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimpiarActionPerformed(evt);
+            }
+        });
+
+        cbxEstadoFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxEstadoFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxEstadoFiltroActionPerformed(evt);
             }
         });
 
@@ -129,8 +220,10 @@ public class Modificar_Estado extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(cbxEstadoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnBuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnLimpiar)
@@ -148,10 +241,11 @@ public class Modificar_Estado extends javax.swing.JInternalFrame {
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDni)
-                    .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar)
-                    .addComponent(btnLimpiar))
+                    .addComponent(btnLimpiar)
+                    .addComponent(cbxEstadoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(39, 39, 39)
@@ -180,22 +274,78 @@ public class Modificar_Estado extends javax.swing.JInternalFrame {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         // TODO add your handling code here:
+        int fila = tblLista.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccioná un alumno de la tabla.", "Atención", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        int id = (int) modeloTabla.getValueAt(fila, 0);
+        if (alumnoData.bajaLogicaAlumno(id)) {
+            modeloTabla.setValueAt("Inactivo", fila, 5);
+            JOptionPane.showMessageDialog(this, "Baja lógica realizada.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo dar de baja.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
 
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnBorrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrar1ActionPerformed
         // TODO add your handling code here:
+        int fila = tblLista.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccioná un alumno de la tabla.", "Atención", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        int id = (int) modeloTabla.getValueAt(fila, 0);
+        if (alumnoData.altaLogicaAlumno(id)) {
+            modeloTabla.setValueAt("Activo", fila, 5);
+            JOptionPane.showMessageDialog(this, "Alta lógica realizada.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo dar de alta.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnBorrar1ActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-      
+        String q = txtDni.getText().trim();
+        String dni = "";
+        String nombreOApellido = "";
+        Integer estado = null;
+
+        switch (jComboBox1.getSelectedIndex()) {
+            case 0 ->
+                dni = q;           // DNI
+            case 1, 2 ->
+                nombreOApellido = q; // Apellido o Nombre
+            case 3 ->
+                estado = (cbxEstadoFiltro.getSelectedIndex() == 0) ? 1 : 0; // Activo/Inactivo
+            default -> {
+            }
+        }
+
+        List<Alumno> lista = alumnoData.buscarAlumnos(dni, nombreOApellido, estado);
+        if (lista.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Sin resultados.", "Info", JOptionPane.INFORMATION_MESSAGE);
+        }
+        llenarTabla(lista);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         // TODO add your handling code here:
-     
+        txtDni.setText("");
+        jComboBox1.setSelectedIndex(0);
+        modeloTabla.setRowCount(0);
+
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void cbxEstadoFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxEstadoFiltroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxEstadoFiltroActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+        actualizarUIFiltro();
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -204,6 +354,7 @@ public class Modificar_Estado extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnSalir2;
+    private javax.swing.JComboBox<String> cbxEstadoFiltro;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel lblDni;
     private javax.swing.JLabel lblTitulo;
