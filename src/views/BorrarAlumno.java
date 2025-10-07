@@ -40,12 +40,12 @@ public class BorrarAlumno extends javax.swing.JInternalFrame {
 
             @Override
             public Class<?> getColumnClass(int columnIndex) {
-                return switch (columnIndex) {
-                    case 0 ->
-                        Integer.class;  // ID
-                    default ->
-                        String.class;
-                };
+                switch (columnIndex) {
+                    case 0:
+                        return Integer.class;  // ID
+                    default:
+                        return String.class;
+                }
             }
         };
         tblLista.setModel(modeloTabla);

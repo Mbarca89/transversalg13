@@ -204,14 +204,17 @@ public class BuscarAlumno extends javax.swing.JInternalFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         Integer estado = null;
         switch (cbxFiltro.getSelectedIndex()) {
-            case 0 ->
+            case 0:
                 estado = null;
-            case 1 ->
+                break;
+            case 1:
                 estado = 1;
-            case 2 ->
+                break;
+            case 2:
                 estado = 0;
-            default -> {
-            }
+                break;
+            default:
+                break;
         }
 
         List<Alumno> alumnos = alumnoData.buscarAlumnos(txtDni.getText(), txtNombre.getText(), estado);

@@ -15,6 +15,8 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Zuñiga Manuel
  */
+
+
 public class Modificar_Estado extends javax.swing.JInternalFrame {
 
     /**
@@ -41,14 +43,14 @@ public class Modificar_Estado extends javax.swing.JInternalFrame {
                 return false;
             }
 
-            @Override
+            @Override           
             public Class<?> getColumnClass(int columnIndex) {
-                return switch (columnIndex) {
-                    case 0 ->
-                        Integer.class; // ID
-                    default ->
-                        String.class;
-                };
+                switch (columnIndex) {
+                    case 0:
+                        return Integer.class; // ID
+                    default:
+                        return String.class;
+                }
             }
         };
         tblLista.setModel(modeloTabla);
@@ -313,14 +315,18 @@ public class Modificar_Estado extends javax.swing.JInternalFrame {
         Integer estado = null;
 
         switch (jComboBox1.getSelectedIndex()) {
-            case 0 ->
-                dni = q;           // DNI
-            case 1, 2 ->
+            case 0:
+                dni = q; // DNI
+                break;
+            case 1:
+            case 2:
                 nombreOApellido = q; // Apellido o Nombre
-            case 3 ->
+                break;
+            case 3:
                 estado = (cbxEstadoFiltro.getSelectedIndex() == 0) ? 1 : 0; // Activo/Inactivo
-            default -> {
-            }
+                break;
+            default:
+                break;
         }
 
         List<Alumno> lista = alumnoData.buscarAlumnos(dni, nombreOApellido, estado);

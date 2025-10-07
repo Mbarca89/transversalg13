@@ -142,12 +142,12 @@ public class AlumnoData {
         );
         List<Object> params = new ArrayList<>();
 
-        if (dni != null && !dni.isBlank()) {
+        if (dni != null && !dni.isEmpty()) {
             sql.append(" AND dni LIKE ?");
             params.add("%" + dni.trim() + "%");
         }
 
-        if (nombre != null && !nombre.isBlank()) {
+        if (nombre != null && !nombre.isEmpty()) {
             sql.append(" AND (LOWER(nombre) LIKE ? OR LOWER(apellido) LIKE ?)");
             String like = "%" + nombre.trim().toLowerCase() + "%";
             params.add(like);
@@ -165,12 +165,12 @@ public class AlumnoData {
         try (PreparedStatement ps = conectado.prepareStatement(sql.toString())) {
             for (int i = 0; i < params.size(); i++) {
                 Object p = params.get(i);
-                if (p instanceof String s) {
-                    ps.setString(i + 1, s);
-                } else if (p instanceof Boolean b) {
-                    ps.setBoolean(i + 1, b);
-                } else if (p instanceof Integer n) {
-                    ps.setInt(i + 1, n);
+                if (p instanceof String) {
+                    ps.setString(i + 1, (String) p);
+                } else if (p instanceof Boolean) {
+                    ps.setBoolean(i + 1, (Boolean) p);
+                } else if (p instanceof Integer) {
+                    ps.setInt(i + 1, (Integer) p);
                 }
             }
 

@@ -8,7 +8,6 @@ package persistance;
  *
  * @author Manuel Zuñiga
  */
-
 import Alumno.Materia;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -135,7 +134,7 @@ public class MateriaData {
         );
         List<Object> params = new ArrayList<>();
 
-        if (nombre != null && !nombre.isBlank()) {
+        if (nombre != null && !nombre.isEmpty()) {
             sql.append(" AND LOWER(nombre) LIKE ?");
             params.add("%" + nombre.trim().toLowerCase() + "%");
         }
@@ -153,12 +152,12 @@ public class MateriaData {
         try (PreparedStatement ps = conectado.prepareStatement(sql.toString())) {
             for (int i = 0; i < params.size(); i++) {
                 Object p = params.get(i);
-                if (p instanceof String s) {
-                    ps.setString(i + 1, s);
-                } else if (p instanceof Integer n) {
-                    ps.setInt(i + 1, n);
-                } else if (p instanceof Boolean b) {
-                    ps.setBoolean(i + 1, b);
+                if (p instanceof String) {
+                    ps.setString(i + 1, (String) p);
+                } else if (p instanceof Integer) {
+                    ps.setInt(i + 1, (Integer) p);
+                } else if (p instanceof Boolean) {
+                    ps.setBoolean(i + 1, (Boolean) p);
                 }
             }
             try (ResultSet rs = ps.executeQuery()) {
