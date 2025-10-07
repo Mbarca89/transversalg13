@@ -37,7 +37,6 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuItem3 = new javax.swing.JMenuItem();
         escritorio = new javax.swing.JDesktopPane();
         mnbMenu = new javax.swing.JMenuBar();
         mnuAlumno = new javax.swing.JMenu();
@@ -45,13 +44,15 @@ public class Main extends javax.swing.JFrame {
         mniModificar_Alumno = new javax.swing.JMenuItem();
         mniEstado = new javax.swing.JMenuItem();
         mniBorrar = new javax.swing.JMenuItem();
+        mnuMateria = new javax.swing.JMenu();
+        mniAgregarMateria = new javax.swing.JMenuItem();
+        mniModificarMateria = new javax.swing.JMenuItem();
+        mniBorrarMateria = new javax.swing.JMenuItem();
         mnuBuscar = new javax.swing.JMenu();
         mniAlumnos = new javax.swing.JMenuItem();
         mniMaterias = new javax.swing.JMenuItem();
         mnuSalir = new javax.swing.JMenu();
         mniSalir = new javax.swing.JMenuItem();
-
-        jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,11 +60,11 @@ public class Main extends javax.swing.JFrame {
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 950, Short.MAX_VALUE)
+            .addGap(0, 1100, Short.MAX_VALUE)
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 511, Short.MAX_VALUE)
+            .addGap(0, 620, Short.MAX_VALUE)
         );
 
         mnuAlumno.setText("Alumno");
@@ -101,6 +102,34 @@ public class Main extends javax.swing.JFrame {
         mnuAlumno.add(mniBorrar);
 
         mnbMenu.add(mnuAlumno);
+
+        mnuMateria.setText("Materia");
+
+        mniAgregarMateria.setText("Agregar Materia");
+        mniAgregarMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniAgregarMateriaActionPerformed(evt);
+            }
+        });
+        mnuMateria.add(mniAgregarMateria);
+
+        mniModificarMateria.setText("Modificar Materia");
+        mniModificarMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniModificarMateriaActionPerformed(evt);
+            }
+        });
+        mnuMateria.add(mniModificarMateria);
+
+        mniBorrarMateria.setText("Borrar Materia");
+        mniBorrarMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniBorrarMateriaActionPerformed(evt);
+            }
+        });
+        mnuMateria.add(mniBorrarMateria);
+
+        mnbMenu.add(mnuMateria);
 
         mnuBuscar.setText("Buscar");
 
@@ -212,6 +241,24 @@ public class Main extends javax.swing.JFrame {
         abrirYCentrar(mod);
     }//GEN-LAST:event_mniModificar_AlumnoActionPerformed
 
+    private void mniAgregarMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAgregarMateriaActionPerformed
+        // TODO add your handling code here:
+        AgregarMateria agregarMateria = new AgregarMateria();
+        abrirYCentrar(agregarMateria);
+    }//GEN-LAST:event_mniAgregarMateriaActionPerformed
+
+    private void mniModificarMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniModificarMateriaActionPerformed
+        // TODO add your handling code here:
+        ModificarMateria modificarMateria = new ModificarMateria();
+        abrirYCentrar(modificarMateria);
+    }//GEN-LAST:event_mniModificarMateriaActionPerformed
+
+    private void mniBorrarMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniBorrarMateriaActionPerformed
+        // TODO add your handling code here:
+        BorrarMateria borrarMateria = new BorrarMateria();
+        abrirYCentrar(borrarMateria);
+    }//GEN-LAST:event_mniBorrarMateriaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -260,17 +307,20 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuBar mnbMenu;
     private javax.swing.JMenuItem mniAagregar;
+    private javax.swing.JMenuItem mniAgregarMateria;
     private javax.swing.JMenuItem mniAlumnos;
     private javax.swing.JMenuItem mniBorrar;
+    private javax.swing.JMenuItem mniBorrarMateria;
     private javax.swing.JMenuItem mniEstado;
     private javax.swing.JMenuItem mniMaterias;
+    private javax.swing.JMenuItem mniModificarMateria;
     private javax.swing.JMenuItem mniModificar_Alumno;
     private javax.swing.JMenuItem mniSalir;
     private javax.swing.JMenu mnuAlumno;
     private javax.swing.JMenu mnuBuscar;
+    private javax.swing.JMenu mnuMateria;
     private javax.swing.JMenu mnuSalir;
     // End of variables declaration//GEN-END:variables
 }
