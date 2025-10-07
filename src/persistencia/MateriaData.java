@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package persistance;
+package persistencia;
 
 /**
  *
  * @author Manuel Zuñiga
  */
-import Alumno.Materia;
+import modelo.Materia;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;

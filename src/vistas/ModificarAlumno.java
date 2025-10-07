@@ -2,24 +2,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package views;
+package vistas;
 
-import Alumno.Alumno;
+import modelo.Alumno;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import javax.swing.JOptionPane;
-import persistance.AlumnoData;
+import persistencia.AlumnoData;
 
 /**
  *
  * @author Nicolino Uchiha
  */
-public class Modificar_Alumno extends javax.swing.JInternalFrame {
+public class ModificarAlumno extends javax.swing.JInternalFrame {
 
     private final AlumnoData alumnoData;
     private Alumno alumnoActual;
 
-    public Modificar_Alumno(AlumnoData alumnoData) {
+    public ModificarAlumno(AlumnoData alumnoData) {
         this.alumnoData = alumnoData;
         initComponents();
 
@@ -66,7 +66,7 @@ public class Modificar_Alumno extends javax.swing.JInternalFrame {
         txtDni = new javax.swing.JTextField();
         btnBorrar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
-        btnSalir3 = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnBuscar1 = new javax.swing.JButton();
         lblModificar = new javax.swing.JLabel();
@@ -153,10 +153,10 @@ public class Modificar_Alumno extends javax.swing.JInternalFrame {
             }
         });
 
-        btnSalir3.setText("Salir");
-        btnSalir3.addActionListener(new java.awt.event.ActionListener() {
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalir3ActionPerformed(evt);
+                btnSalirActionPerformed(evt);
             }
         });
 
@@ -215,7 +215,7 @@ public class Modificar_Alumno extends javax.swing.JInternalFrame {
                 .addGap(65, 65, 65)
                 .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
-                .addComponent(btnSalir3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 106, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(43, 43, 43)
@@ -280,7 +280,7 @@ public class Modificar_Alumno extends javax.swing.JInternalFrame {
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSalir3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(75, Short.MAX_VALUE))
         );
 
@@ -314,10 +314,10 @@ public class Modificar_Alumno extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
-    private void btnSalir3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir3ActionPerformed
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
         this.dispose();
-    }//GEN-LAST:event_btnSalir3ActionPerformed
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
@@ -393,8 +393,8 @@ public class Modificar_Alumno extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnBuscar1;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSalir2;
-    private javax.swing.JButton btnSalir3;
     private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jdcFecha;
     private javax.swing.JLabel lblApellido;

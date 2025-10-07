@@ -1,6 +1,6 @@
-package persistance;
+package persistencia;
 
-import Alumno.Alumno;
+import modelo.Alumno;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

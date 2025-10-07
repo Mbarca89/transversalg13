@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package views;
+package vistas;
 
 import java.sql.Connection;
 import javax.swing.JInternalFrame;
-import persistance.AlumnoData;
-import persistance.DbConnection;
+import persistencia.AlumnoData;
+import persistencia.DbConnection;
 
 /**
  *
@@ -202,13 +202,13 @@ public class Main extends javax.swing.JFrame {
 
     private void mniEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEstadoActionPerformed
         // TODO add your handling code here:
-        Modificar_Estado frame = new Modificar_Estado(alumnoData);
+        ModificarEstado frame = new ModificarEstado(alumnoData);
         abrirYCentrar(frame);
     }//GEN-LAST:event_mniEstadoActionPerformed
 
     private void mniModificar_AlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniModificar_AlumnoActionPerformed
         // TODO add your handling code here:
-        Modificar_Alumno mod = new Modificar_Alumno(alumnoData);
+        ModificarAlumno mod = new ModificarAlumno(alumnoData);
         abrirYCentrar(mod);
     }//GEN-LAST:event_mniModificar_AlumnoActionPerformed
 

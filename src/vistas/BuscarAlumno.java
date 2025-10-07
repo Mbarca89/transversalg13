@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package views;
+package vistas;
 
-import Alumno.Alumno;
+import modelo.Alumno;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import persistance.AlumnoData;
+import persistencia.AlumnoData;
 
 /**
  *

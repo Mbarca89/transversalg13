@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package views;
+package vistas;
 
-import Alumno.Alumno;
-import persistance.AlumnoData;
+import modelo.Alumno;
+import persistencia.AlumnoData;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  */
 
 
-public class Modificar_Estado extends javax.swing.JInternalFrame {
+public class ModificarEstado extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Dar_de_Baja
@@ -25,11 +25,11 @@ public class Modificar_Estado extends javax.swing.JInternalFrame {
     private final AlumnoData alumnoData;
     private DefaultTableModel modeloTabla;
 
-    public Modificar_Estado(AlumnoData alumnoData) {
+    public ModificarEstado(AlumnoData alumnoData) {
         this.alumnoData = alumnoData;
         initComponents();
         cbxEstadoFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Activo", "Inactivo"}));
-        jComboBox1.addActionListener(e -> actualizarUIFiltro());
+        cbxFiltro.addActionListener(e -> actualizarUIFiltro());
         actualizarUIFiltro();
         generarTabla();
     }
@@ -89,7 +89,7 @@ public class Modificar_Estado extends javax.swing.JInternalFrame {
     }
 
     private void actualizarUIFiltro() {
-        boolean esEstado = jComboBox1.getSelectedItem().toString().equals("Estado");
+        boolean esEstado = cbxFiltro.getSelectedItem().toString().equals("Estado");
         txtDni.setVisible(!esEstado);
         if (esEstado) {
             txtDni.setText("");
@@ -114,7 +114,7 @@ public class Modificar_Estado extends javax.swing.JInternalFrame {
         scrLista = new javax.swing.JScrollPane();
         tblLista = new javax.swing.JTable();
         btnBorrar1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbxFiltro = new javax.swing.JComboBox<>();
         btnBuscar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
         cbxEstadoFiltro = new javax.swing.JComboBox<>();
@@ -173,10 +173,10 @@ public class Modificar_Estado extends javax.swing.JInternalFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DNI", "Apellido", "Nombre", "Estado" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        cbxFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DNI", "Apellido", "Nombre", "Estado" }));
+        cbxFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                cbxFiltroActionPerformed(evt);
             }
         });
 
@@ -220,7 +220,7 @@ public class Modificar_Estado extends javax.swing.JInternalFrame {
                         .addGap(100, 100, 100)
                         .addComponent(lblDni)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(cbxEstadoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -244,7 +244,7 @@ public class Modificar_Estado extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDni)
                     .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar)
                     .addComponent(btnLimpiar)
                     .addComponent(cbxEstadoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -314,7 +314,7 @@ public class Modificar_Estado extends javax.swing.JInternalFrame {
         String nombreOApellido = "";
         Integer estado = null;
 
-        switch (jComboBox1.getSelectedIndex()) {
+        switch (cbxFiltro.getSelectedIndex()) {
             case 0:
                 dni = q; // DNI
                 break;
@@ -339,7 +339,7 @@ public class Modificar_Estado extends javax.swing.JInternalFrame {
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         // TODO add your handling code here:
         txtDni.setText("");
-        jComboBox1.setSelectedIndex(0);
+        cbxFiltro.setSelectedIndex(0);
         modeloTabla.setRowCount(0);
 
     }//GEN-LAST:event_btnLimpiarActionPerformed
@@ -348,10 +348,10 @@ public class Modificar_Estado extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxEstadoFiltroActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void cbxFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFiltroActionPerformed
         // TODO add your handling code here:
         actualizarUIFiltro();
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_cbxFiltroActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -361,7 +361,7 @@ public class Modificar_Estado extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnSalir2;
     private javax.swing.JComboBox<String> cbxEstadoFiltro;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cbxFiltro;
     private javax.swing.JLabel lblDni;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JScrollPane scrLista;
