@@ -10,6 +10,8 @@ import javax.swing.JInternalFrame;
 import persistencia.AlumnoData;
 import persistencia.DbConnection;
 import persistencia.MateriaData;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 /**
  *
