@@ -5,16 +5,21 @@
  */
 package vistas;
 
+import persistencia.MateriaData;
+
 /**
  *
  * @author Mauricio
  */
 public class ModificarMateria extends javax.swing.JInternalFrame {
 
+    
+    private final MateriaData materiaData;
     /**
      * Creates new form ModificarMateria
      */
-    public ModificarMateria() {
+    public ModificarMateria(MateriaData materiaData) {
+        this.materiaData = materiaData;
         initComponents();
     }
 
@@ -27,15 +32,26 @@ public class ModificarMateria extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblTitulo = new javax.swing.JLabel();
+
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTitulo.setText("Agregar Materia");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(125, 125, 125)
+                .addComponent(lblTitulo)
+                .addContainerGap(129, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(232, Short.MAX_VALUE))
         );
 
         pack();
@@ -43,5 +59,6 @@ public class ModificarMateria extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel lblTitulo;
     // End of variables declaration//GEN-END:variables
 }

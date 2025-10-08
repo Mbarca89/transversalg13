@@ -48,6 +48,14 @@
             <Property name="text" type="java.lang.String" value="Materia"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="mniVerMaterias">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Ver Materias"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniVerMateriasActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mniAgregarMateria">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Agregar Materia"/>

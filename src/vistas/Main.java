@@ -9,6 +9,7 @@ import java.sql.Connection;
 import javax.swing.JInternalFrame;
 import persistencia.AlumnoData;
 import persistencia.DbConnection;
+import persistencia.MateriaData;
 
 /**
  *
@@ -18,6 +19,7 @@ public class Main extends javax.swing.JFrame {
 
     private static DbConnection connection;
     private final AlumnoData alumnoData;
+    private final MateriaData materiaData;
 
     /**
      * Creates new form Main
@@ -25,6 +27,7 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         connection = new DbConnection("jdbc:mariadb://localhost/universidad_gp13", "root", "");
         alumnoData = new AlumnoData(connection);
+        materiaData = new MateriaData(connection);
         initComponents();
     }
 
@@ -45,6 +48,7 @@ public class Main extends javax.swing.JFrame {
         mniEstado = new javax.swing.JMenuItem();
         mniBorrar = new javax.swing.JMenuItem();
         mnuMateria = new javax.swing.JMenu();
+        mniVerMaterias = new javax.swing.JMenuItem();
         mniAgregarMateria = new javax.swing.JMenuItem();
         mniModificarMateria = new javax.swing.JMenuItem();
         mniBorrarMateria = new javax.swing.JMenuItem();
@@ -104,6 +108,14 @@ public class Main extends javax.swing.JFrame {
         mnbMenu.add(mnuAlumno);
 
         mnuMateria.setText("Materia");
+
+        mniVerMaterias.setText("Ver Materias");
+        mniVerMaterias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniVerMateriasActionPerformed(evt);
+            }
+        });
+        mnuMateria.add(mniVerMaterias);
 
         mniAgregarMateria.setText("Agregar Materia");
         mniAgregarMateria.addActionListener(new java.awt.event.ActionListener() {
@@ -243,21 +255,27 @@ public class Main extends javax.swing.JFrame {
 
     private void mniAgregarMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAgregarMateriaActionPerformed
         // TODO add your handling code here:
-        AgregarMateria agregarMateria = new AgregarMateria();
+        AgregarMateria agregarMateria = new AgregarMateria(materiaData);
         abrirYCentrar(agregarMateria);
     }//GEN-LAST:event_mniAgregarMateriaActionPerformed
 
     private void mniModificarMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniModificarMateriaActionPerformed
         // TODO add your handling code here:
-        ModificarMateria modificarMateria = new ModificarMateria();
+        ModificarMateria modificarMateria = new ModificarMateria(materiaData);
         abrirYCentrar(modificarMateria);
     }//GEN-LAST:event_mniModificarMateriaActionPerformed
 
     private void mniBorrarMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniBorrarMateriaActionPerformed
         // TODO add your handling code here:
-        BorrarMateria borrarMateria = new BorrarMateria();
+        BorrarMateria borrarMateria = new BorrarMateria(materiaData);
         abrirYCentrar(borrarMateria);
     }//GEN-LAST:event_mniBorrarMateriaActionPerformed
+
+    private void mniVerMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniVerMateriasActionPerformed
+        // TODO add your handling code here:
+        VerMaterias verMaterias = new VerMaterias(materiaData);
+        abrirYCentrar(verMaterias);
+    }//GEN-LAST:event_mniVerMateriasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -318,6 +336,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniModificarMateria;
     private javax.swing.JMenuItem mniModificar_Alumno;
     private javax.swing.JMenuItem mniSalir;
+    private javax.swing.JMenuItem mniVerMaterias;
     private javax.swing.JMenu mnuAlumno;
     private javax.swing.JMenu mnuBuscar;
     private javax.swing.JMenu mnuMateria;

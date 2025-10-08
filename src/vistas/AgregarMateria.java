@@ -5,17 +5,23 @@
  */
 package vistas;
 
+import persistencia.MateriaData;
+
 /**
  *
  * @author Mauricio
  */
 public class AgregarMateria extends javax.swing.JInternalFrame {
 
+    
+    private final MateriaData materiaData;
     /**
      * Creates new form AgregarMateria
      */
-    public AgregarMateria() {
+    public AgregarMateria(MateriaData materiaData) {
+        this.materiaData = materiaData;
         initComponents();
+        
     }
 
     /**
@@ -27,21 +33,144 @@ public class AgregarMateria extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblTitulo = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtNombreMateria = new javax.swing.JTextField();
+        txtAnioMateria = new javax.swing.JTextField();
+        btnGuardar = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
+
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTitulo.setText("Agregar Materia");
+
+        jLabel1.setText("Nombre:");
+
+        jLabel2.setText("Año:");
+
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addGap(42, 42, 42)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblTitulo)
+                            .addComponent(txtNombreMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtAnioMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtNombreMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtAnioMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        try {
+            String dni = txtDNI.getText().trim();
+            String nombre = txtNombre.getText().trim();
+            String apellido = txtApellido.getText().trim();
+            java.util.Date utilDate = jdcFecha.getDate();
+
+            if (dni.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || utilDate == null) {
+                javax.swing.JOptionPane.showMessageDialog(this,
+                    "Completá DNI, Nombre, Apellido y Fecha de Nacimiento.",
+                    "Faltan datos", javax.swing.JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            if (!dni.matches("\\d+")) {
+                javax.swing.JOptionPane.showMessageDialog(this,
+                    "El DNI debe contener solo números.",
+                    "Dato inválido", javax.swing.JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            java.time.LocalDate fechaNac = utilDate.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+
+            Alumno a = new Alumno();
+            a.setDni(dni);
+            a.setNombre(nombre);
+            a.setApellido(apellido);
+            a.setFechaNacimiento(fechaNac);
+            a.setEstado(true);
+
+            alumnoData.guardarAlumno(a);
+
+            if (a.getIdAlumno() > 0) {
+                txtID.setText(String.valueOf(a.getIdAlumno()));
+                javax.swing.JOptionPane.showMessageDialog(this,
+                    "Alumno "+a.getApellido()+" guardado con éxito.",
+                    "Éxito", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+
+                limpiarFormulario();
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this,
+                    "No se pudo confirmar el guardado (ID no asignado).",
+                    "Atención", javax.swing.JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (HeadlessException ex) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                "Ocurrió un error al guardar: " + ex.getMessage(),
+                "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnSalir;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JTextField txtAnioMateria;
+    private javax.swing.JTextField txtNombreMateria;
     // End of variables declaration//GEN-END:variables
 }

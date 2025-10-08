@@ -11,13 +11,13 @@ import persistencia.MateriaData;
  *
  * @author Mauricio
  */
-public class BorrarMateria extends javax.swing.JInternalFrame {
+public class VerMaterias extends javax.swing.JInternalFrame {
 
     private final MateriaData materiaData;
     /**
-     * Creates new form BorrarMateria
+     * Creates new form VerMaterias
      */
-    public BorrarMateria(MateriaData materiaData) {
+    public VerMaterias(MateriaData materiaData) {
         this.materiaData = materiaData;
         initComponents();
     }
