@@ -5,6 +5,8 @@
  */
 package vistas;
 
+import javax.swing.JOptionPane;
+import modelo.Materia;
 import persistencia.MateriaData;
 
 /**
@@ -15,14 +17,34 @@ public class ModificarMateria extends javax.swing.JInternalFrame {
 
     
     private final MateriaData materiaData;
+    private Materia materia;
     /**
      * Creates new form ModificarMateria
      */
-    public ModificarMateria(MateriaData materiaData) {
+    public ModificarMateria(MateriaData materiaData,Materia materia) {
         this.materiaData = materiaData;
+        this.materia=materia;
         initComponents();
+        
+        cargarAnios();
+        cargarDatosFormulario();
+          
     }
-
+    public void cargarAnios(){
+            cmbanio.removeAllItems();   
+        for (int i = 1; i <= 5; i++) {
+            cmbanio.addItem(String.valueOf(i)); 
+        }
+    }
+    public void cargarDatosFormulario() {
+        txtNombre.setText(materia.getNombre());
+        cmbanio.setSelectedItem(String.valueOf(materia.getAnio())); 
+        if (materia.isEstado()) {
+            cmbestado.setSelectedItem("Alta");
+            } else {
+            cmbestado.setSelectedItem("Baja");
+        }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,7 +76,11 @@ public class ModificarMateria extends javax.swing.JInternalFrame {
         lblestado.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblestado.setText("Estado:");
 
-        cmbanio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbanio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbanioActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -71,6 +97,7 @@ public class ModificarMateria extends javax.swing.JInternalFrame {
         });
 
         cmbestado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alta", "Baja" }));
+        cmbestado.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -128,13 +155,39 @@ public class ModificarMateria extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
+       
+        String nombre = txtNombre.getText().trim();
+        if (nombre.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar un nombre para la materia.");
+            return;
+        }
+
+        int anio = Integer.parseInt((String) cmbanio.getSelectedItem());
+        boolean estado = cmbestado.getSelectedItem().equals("Alta");
+
+        materia.setNombre(nombre);
+        materia.setAnio(anio);
+        materia.setEstado(estado);
+
+        boolean actualizado = materiaData.actualizarMateria(materia);
+
+        if (actualizado) {
+            JOptionPane.showMessageDialog(this, "Materia actualizada correctamente.");
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo actualizar la materia.");
+        }
+  
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void cmbanioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbanioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbanioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
