@@ -5,6 +5,9 @@
  */
 package vistas;
 
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import modelo.Materia;
 import persistencia.MateriaData;
 
 /**
@@ -14,12 +17,52 @@ import persistencia.MateriaData;
 public class VerMaterias extends javax.swing.JInternalFrame {
 
     private final MateriaData materiaData;
+    private DefaultTableModel modeloTabla;
+
     /**
      * Creates new form VerMaterias
      */
     public VerMaterias(MateriaData materiaData) {
         this.materiaData = materiaData;
         initComponents();
+        modeloTabla = (DefaultTableModel) tblLista.getModel();
+        modeloTabla.setRowCount(0);
+        tblLista.setModel(modeloTabla);
+        llenarTabla();
+
+        tblLista.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                if (e.getClickCount() == 2 && javax.swing.SwingUtilities.isLeftMouseButton(e)) {
+                    int fila = tblLista.rowAtPoint(e.getPoint());
+                    if (fila >= 0) {
+                        int idMateria = (int) modeloTabla.getValueAt(fila, 0);
+                        Materia materiaSeleccionada = materiaData.obtenerMateriaPorId(idMateria);
+                        DetalleMateria detalle = new DetalleMateria(materiaSeleccionada);
+                        getDesktopPane().add(detalle);
+                        int x = (getDesktopPane().getWidth() - detalle.getWidth()) / 2;
+                        int y = (getDesktopPane().getHeight() - detalle.getHeight()) / 2;
+                        detalle.setLocation(x, y);
+                        detalle.setVisible(true);
+                        detalle.toFront();
+                    }
+                }
+            }
+        });
+
+    }
+
+    private void llenarTabla() {
+        List<Materia> materias = materiaData.listarTodasMaterias();
+        for (Materia materia : materias) {
+            modeloTabla.addRow(new Object[]{
+                materia.getIdMateria(),
+                materia.getNombre(),
+                materia.getAnio(),
+                materia.isEstado() ? "Activa" : "Inactiva"
+            });
+
+        }
     }
 
     /**
@@ -31,21 +74,113 @@ public class VerMaterias extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblTitulo = new javax.swing.JLabel();
+        scrLista = new javax.swing.JScrollPane();
+        tblLista = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblTitulo.setText("Materias");
+
+        tblLista.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID", "Nombre", "Año", "Estado"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        scrLista.setViewportView(tblLista);
+
+        jButton1.setText("Detalle");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Cerrar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 409, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton2)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(335, 335, 335)
+                            .addComponent(lblTitulo))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(20, 20, 20)
+                            .addComponent(scrLista, javax.swing.GroupLayout.PREFERRED_SIZE, 756, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(338, 338, 338)
+                            .addComponent(jButton1))))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 284, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblTitulo)
+                .addGap(31, 31, 31)
+                .addComponent(scrLista, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(39, 39, 39))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int fila = tblLista.getSelectedRow();
+        if (fila >= 0) {
+            int idMateria = (int) modeloTabla.getValueAt(fila, 0);
+            Materia materiaSeleccionada = materiaData.obtenerMateriaPorId(idMateria);
+            DetalleMateria detalle = new DetalleMateria(materiaSeleccionada);
+            getDesktopPane().add(detalle);
+            int x = (getDesktopPane().getWidth() - detalle.getWidth()) / 2;
+            int y = (getDesktopPane().getHeight() - detalle.getHeight()) / 2;
+            detalle.setLocation(x, y);
+            detalle.setVisible(true);
+            detalle.toFront();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JScrollPane scrLista;
+    private javax.swing.JTable tblLista;
     // End of variables declaration//GEN-END:variables
 }
