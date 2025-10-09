@@ -138,6 +138,11 @@ public class Main extends javax.swing.JFrame {
         mnuBuscar.add(mniAlumnos);
 
         mniMaterias.setText("Materias");
+        mniMaterias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniMateriasActionPerformed(evt);
+            }
+        });
         mnuBuscar.add(mniMaterias);
 
         mnbMenu.add(mnuBuscar);
@@ -248,6 +253,12 @@ public class Main extends javax.swing.JFrame {
         VerMaterias verMaterias = new VerMaterias(materiaData);
         abrirYCentrar(verMaterias);
     }//GEN-LAST:event_mniVerMateriasActionPerformed
+
+    private void mniMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniMateriasActionPerformed
+        // TODO add your handling code here:
+        BuscarMateria buscarMateria = new BuscarMateria(materiaData);
+        abrirYCentrar(buscarMateria);
+    }//GEN-LAST:event_mniMateriasActionPerformed
 
     /**
      * @param args the command line arguments
