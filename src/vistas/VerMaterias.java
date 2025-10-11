@@ -10,18 +10,11 @@ import javax.swing.table.DefaultTableModel;
 import modelo.Materia;
 import persistencia.MateriaData;
 
-/**
- *
- * @author Mauricio
- */
 public class VerMaterias extends javax.swing.JInternalFrame {
 
     private final MateriaData materiaData;
     private DefaultTableModel modeloTabla;
 
-    /**
-     * Creates new form VerMaterias
-     */
     public VerMaterias(MateriaData materiaData) {
         this.materiaData = materiaData;
         initComponents();
@@ -30,6 +23,7 @@ public class VerMaterias extends javax.swing.JInternalFrame {
         tblLista.setModel(modeloTabla);
         llenarTabla();
 
+  
         tblLista.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -38,7 +32,7 @@ public class VerMaterias extends javax.swing.JInternalFrame {
                     if (fila >= 0) {
                         int idMateria = (int) modeloTabla.getValueAt(fila, 0);
                         Materia materiaSeleccionada = materiaData.obtenerMateriaPorId(idMateria);
-                        DetalleMateria detalle = new DetalleMateria(materiaSeleccionada);
+                        DetalleMateria detalle = new DetalleMateria(VerMaterias.this, materiaData, materiaSeleccionada);
                         getDesktopPane().add(detalle);
                         int x = (getDesktopPane().getWidth() - detalle.getWidth()) / 2;
                         int y = (getDesktopPane().getHeight() - detalle.getHeight()) / 2;
@@ -49,11 +43,11 @@ public class VerMaterias extends javax.swing.JInternalFrame {
                 }
             }
         });
-
     }
 
     private void llenarTabla() {
         List<Materia> materias = materiaData.listarTodasMaterias();
+        modeloTabla.setRowCount(0); 
         for (Materia materia : materias) {
             modeloTabla.addRow(new Object[]{
                 materia.getIdMateria(),
@@ -61,7 +55,17 @@ public class VerMaterias extends javax.swing.JInternalFrame {
                 materia.getAnio(),
                 materia.isEstado() ? "Activa" : "Inactiva"
             });
+        }
+    }
 
+   
+    public void eliminarFilaDeMateria(int idMateria) {
+        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+            int id = (int) modeloTabla.getValueAt(i, 0);
+            if (id == idMateria) {
+                modeloTabla.removeRow(i);
+                break;
+            }
         }
     }
 
@@ -156,11 +160,11 @@ public class VerMaterias extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        int fila = tblLista.getSelectedRow();
+          int fila = tblLista.getSelectedRow();
         if (fila >= 0) {
             int idMateria = (int) modeloTabla.getValueAt(fila, 0);
             Materia materiaSeleccionada = materiaData.obtenerMateriaPorId(idMateria);
-            DetalleMateria detalle = new DetalleMateria(materiaSeleccionada);
+            DetalleMateria detalle = new DetalleMateria(VerMaterias.this, materiaData, materiaSeleccionada);
             getDesktopPane().add(detalle);
             int x = (getDesktopPane().getWidth() - detalle.getWidth()) / 2;
             int y = (getDesktopPane().getHeight() - detalle.getHeight()) / 2;
