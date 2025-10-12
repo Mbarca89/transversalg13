@@ -26,7 +26,7 @@ public class BuscarAlumno extends javax.swing.JInternalFrame {
         this.alumnoData = alumnoData;
         initComponents();
 
-        modeloTabla = new DefaultTableModel(new Object[]{"ID", "DNI", "Apellido", "Nombre", "Fecha de nacimiento", "Estado"}, 0);
+        modeloTabla = (DefaultTableModel) tblLista.getModel();
         modeloTabla.setRowCount(0);
         tblLista.setModel(modeloTabla);
 

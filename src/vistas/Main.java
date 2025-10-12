@@ -10,6 +10,8 @@ import javax.swing.JInternalFrame;
 import persistencia.AlumnoData;
 import persistencia.DbConnection;
 import persistencia.MateriaData;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 /**
  *
@@ -50,8 +52,6 @@ public class Main extends javax.swing.JFrame {
         mnuMateria = new javax.swing.JMenu();
         mniVerMaterias = new javax.swing.JMenuItem();
         mniAgregarMateria = new javax.swing.JMenuItem();
-        mniModificarMateria = new javax.swing.JMenuItem();
-        mniBorrarMateria = new javax.swing.JMenuItem();
         mnuBuscar = new javax.swing.JMenu();
         mniAlumnos = new javax.swing.JMenuItem();
         mniMaterias = new javax.swing.JMenuItem();
@@ -125,22 +125,6 @@ public class Main extends javax.swing.JFrame {
         });
         mnuMateria.add(mniAgregarMateria);
 
-        mniModificarMateria.setText("Modificar Materia");
-        mniModificarMateria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniModificarMateriaActionPerformed(evt);
-            }
-        });
-        mnuMateria.add(mniModificarMateria);
-
-        mniBorrarMateria.setText("Borrar Materia");
-        mniBorrarMateria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniBorrarMateriaActionPerformed(evt);
-            }
-        });
-        mnuMateria.add(mniBorrarMateria);
-
         mnbMenu.add(mnuMateria);
 
         mnuBuscar.setText("Buscar");
@@ -154,6 +138,11 @@ public class Main extends javax.swing.JFrame {
         mnuBuscar.add(mniAlumnos);
 
         mniMaterias.setText("Materias");
+        mniMaterias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniMateriasActionPerformed(evt);
+            }
+        });
         mnuBuscar.add(mniMaterias);
 
         mnbMenu.add(mnuBuscar);
@@ -259,23 +248,17 @@ public class Main extends javax.swing.JFrame {
         abrirYCentrar(agregarMateria);
     }//GEN-LAST:event_mniAgregarMateriaActionPerformed
 
-    private void mniModificarMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniModificarMateriaActionPerformed
-        // TODO add your handling code here:
-        ModificarMateria modificarMateria = new ModificarMateria(materiaData);
-        abrirYCentrar(modificarMateria);
-    }//GEN-LAST:event_mniModificarMateriaActionPerformed
-
-    private void mniBorrarMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniBorrarMateriaActionPerformed
-        // TODO add your handling code here:
-        BorrarMateria borrarMateria = new BorrarMateria(materiaData);
-        abrirYCentrar(borrarMateria);
-    }//GEN-LAST:event_mniBorrarMateriaActionPerformed
-
     private void mniVerMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniVerMateriasActionPerformed
         // TODO add your handling code here:
         VerMaterias verMaterias = new VerMaterias(materiaData);
         abrirYCentrar(verMaterias);
     }//GEN-LAST:event_mniVerMateriasActionPerformed
+
+    private void mniMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniMateriasActionPerformed
+        // TODO add your handling code here:
+        BuscarMateria buscarMateria = new BuscarMateria(materiaData);
+        abrirYCentrar(buscarMateria);
+    }//GEN-LAST:event_mniMateriasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -330,10 +313,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniAgregarMateria;
     private javax.swing.JMenuItem mniAlumnos;
     private javax.swing.JMenuItem mniBorrar;
-    private javax.swing.JMenuItem mniBorrarMateria;
     private javax.swing.JMenuItem mniEstado;
     private javax.swing.JMenuItem mniMaterias;
-    private javax.swing.JMenuItem mniModificarMateria;
     private javax.swing.JMenuItem mniModificar_Alumno;
     private javax.swing.JMenuItem mniSalir;
     private javax.swing.JMenuItem mniVerMaterias;

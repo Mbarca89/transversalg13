@@ -170,6 +170,20 @@ public class MateriaData {
         }
         return out;
     }
+    // seria donde el caso donde el profesor quiera mostrar todas las materias (activas e inactivas)//
+    public List<Materia> listarTodasMaterias() {
+    String sql = "SELECT idMateria, nombre, anio, estado FROM materia ORDER BY anio, nombre";
+    List<Materia> lista = new ArrayList<>();
+    try (PreparedStatement ps = conectado.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+            lista.add(mapRow(rs));
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return lista;
+}
 
     private Materia mapRow(ResultSet rs) throws SQLException {
         Materia m = new Materia();
