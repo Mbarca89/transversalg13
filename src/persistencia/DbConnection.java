@@ -8,6 +8,7 @@ package persistencia;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -36,6 +37,19 @@ public class DbConnection {
             }
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println("Error al conectarse a la base de datos: " + e.getMessage());
+            int opcion = JOptionPane.showOptionDialog(
+                    null,
+                    "No se pudo conectar a la base de datos.\n\n" + e.getMessage(),
+                    "Error",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.ERROR_MESSAGE,
+                    null,
+                    new String[]{"Reintentar", "Salir"},
+                    "Reintentar"
+            );
+            if (opcion == JOptionPane.NO_OPTION) {
+                System.exit(0);
+            }
             e.printStackTrace();
         }
         return connection;
