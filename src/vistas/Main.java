@@ -45,6 +45,7 @@ public class Main extends javax.swing.JFrame {
         escritorio = new javax.swing.JDesktopPane();
         mnbMenu = new javax.swing.JMenuBar();
         mnuAlumno = new javax.swing.JMenu();
+        mniVerAlumnos = new javax.swing.JMenuItem();
         mniAagregar = new javax.swing.JMenuItem();
         mniModificar_Alumno = new javax.swing.JMenuItem();
         mniEstado = new javax.swing.JMenuItem();
@@ -72,6 +73,14 @@ public class Main extends javax.swing.JFrame {
         );
 
         mnuAlumno.setText("Alumno");
+
+        mniVerAlumnos.setText("Ver Alumnos");
+        mniVerAlumnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniVerAlumnosActionPerformed(evt);
+            }
+        });
+        mnuAlumno.add(mniVerAlumnos);
 
         mniAagregar.setText("Agregar Alumno");
         mniAagregar.addActionListener(new java.awt.event.ActionListener() {
@@ -260,6 +269,12 @@ public class Main extends javax.swing.JFrame {
         abrirYCentrar(buscarMateria);
     }//GEN-LAST:event_mniMateriasActionPerformed
 
+    private void mniVerAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniVerAlumnosActionPerformed
+        // TODO add your handling code here:
+        VerAlumnos verAlumnos = new VerAlumnos(alumnoData);
+        abrirYCentrar(verAlumnos);
+    }//GEN-LAST:event_mniVerAlumnosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -317,6 +332,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniMaterias;
     private javax.swing.JMenuItem mniModificar_Alumno;
     private javax.swing.JMenuItem mniSalir;
+    private javax.swing.JMenuItem mniVerAlumnos;
     private javax.swing.JMenuItem mniVerMaterias;
     private javax.swing.JMenu mnuAlumno;
     private javax.swing.JMenu mnuBuscar;

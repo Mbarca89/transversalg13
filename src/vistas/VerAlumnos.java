@@ -5,34 +5,42 @@
  */
 package vistas;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import modelo.Materia;
-import persistencia.MateriaData;
+import modelo.Alumno;
+import persistencia.AlumnoData;
 
-public class VerMaterias extends javax.swing.JInternalFrame {
+/**
+ *
+ * @author Mauricio
+ */
+public class VerAlumnos extends javax.swing.JInternalFrame {
 
-    private final MateriaData materiaData;
     private DefaultTableModel modeloTabla;
+    private AlumnoData alumnoData;
 
-    public VerMaterias(MateriaData materiaData) {
-        this.materiaData = materiaData;
+    /**
+     * Creates new form VerAlumnos
+     */
+    public VerAlumnos(AlumnoData alumnoData) {
+        this.alumnoData = alumnoData;
         initComponents();
+
         modeloTabla = (DefaultTableModel) tblLista.getModel();
         modeloTabla.setRowCount(0);
         tblLista.setModel(modeloTabla);
         llenarTabla();
 
-  
         tblLista.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 if (e.getClickCount() == 2 && javax.swing.SwingUtilities.isLeftMouseButton(e)) {
                     int fila = tblLista.rowAtPoint(e.getPoint());
                     if (fila >= 0) {
-                        int idMateria = (int) modeloTabla.getValueAt(fila, 0);
-                        Materia materiaSeleccionada = materiaData.obtenerMateriaPorId(idMateria);
-                        DetalleMateria detalle = new DetalleMateria(VerMaterias.this, materiaData, materiaSeleccionada);
+                        String dniAlumno = (String) modeloTabla.getValueAt(fila, 1);
+                        Alumno alumno = alumnoData.obtenerAlumnoPorDni(String.valueOf(dniAlumno));
+                        DetalleAlumno detalle = new DetalleAlumno(alumno);
                         getDesktopPane().add(detalle);
                         int x = (getDesktopPane().getWidth() - detalle.getWidth()) / 2;
                         int y = (getDesktopPane().getHeight() - detalle.getHeight()) / 2;
@@ -46,26 +54,18 @@ public class VerMaterias extends javax.swing.JInternalFrame {
     }
 
     private void llenarTabla() {
-        List<Materia> materias = materiaData.listarTodasMaterias();
-        modeloTabla.setRowCount(0); 
-        for (Materia materia : materias) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        List<Alumno> alumnos = alumnoData.obtenerTodosLosAlumnos();
+        modeloTabla.setRowCount(0);
+        for (Alumno a : alumnos) {
             modeloTabla.addRow(new Object[]{
-                materia.getIdMateria(),
-                materia.getNombre(),
-                materia.getAnio(),
-                materia.isEstado() ? "Activa" : "Inactiva"
+                a.getIdAlumno(),
+                a.getDni(),
+                a.getApellido(),
+                a.getNombre(),
+                a.getFechaNacimiento().format(formatter),
+                a.getEstado() ? "Activo" : "Inactivo"
             });
-        }
-    }
-
-   
-    public void eliminarFilaDeMateria(int idMateria) {
-        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-            int id = (int) modeloTabla.getValueAt(i, 0);
-            if (id == idMateria) {
-                modeloTabla.removeRow(i);
-                break;
-            }
         }
     }
 
@@ -82,25 +82,32 @@ public class VerMaterias extends javax.swing.JInternalFrame {
         scrLista = new javax.swing.JScrollPane();
         tblLista = new javax.swing.JTable();
         btnDetalle = new javax.swing.JButton();
-        brnCerrar = new javax.swing.JButton();
+        btnCerrar = new javax.swing.JButton();
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblTitulo.setText("Materias");
+        lblTitulo.setText("Alumnos");
 
         tblLista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nombre", "Año", "Estado"
+                "ID", "DNI", "Apellido", "Nombre", "Fecha de nacimiento", "Estado"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -115,10 +122,10 @@ public class VerMaterias extends javax.swing.JInternalFrame {
             }
         });
 
-        brnCerrar.setText("Cerrar");
-        brnCerrar.addActionListener(new java.awt.event.ActionListener() {
+        btnCerrar.setText("Cerrar");
+        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                brnCerrarActionPerformed(evt);
+                btnCerrarActionPerformed(evt);
             }
         });
 
@@ -128,7 +135,7 @@ public class VerMaterias extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(brnCerrar)
+                    .addComponent(btnCerrar)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(335, 335, 335)
@@ -151,7 +158,7 @@ public class VerMaterias extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnDetalle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
-                .addComponent(brnCerrar)
+                .addComponent(btnCerrar)
                 .addGap(39, 39, 39))
         );
 
@@ -160,11 +167,11 @@ public class VerMaterias extends javax.swing.JInternalFrame {
 
     private void btnDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalleActionPerformed
         // TODO add your handling code here:
-          int fila = tblLista.getSelectedRow();
+        int fila = tblLista.getSelectedRow();
         if (fila >= 0) {
-            int idMateria = (int) modeloTabla.getValueAt(fila, 0);
-            Materia materiaSeleccionada = materiaData.obtenerMateriaPorId(idMateria);
-            DetalleMateria detalle = new DetalleMateria(VerMaterias.this, materiaData, materiaSeleccionada);
+            String dniAlumno = (String) modeloTabla.getValueAt(fila, 1);
+            Alumno alumno = alumnoData.obtenerAlumnoPorDni(String.valueOf(dniAlumno));
+            DetalleAlumno detalle = new DetalleAlumno(alumno);
             getDesktopPane().add(detalle);
             int x = (getDesktopPane().getWidth() - detalle.getWidth()) / 2;
             int y = (getDesktopPane().getHeight() - detalle.getHeight()) / 2;
@@ -174,14 +181,14 @@ public class VerMaterias extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnDetalleActionPerformed
 
-    private void brnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnCerrarActionPerformed
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         // TODO add your handling code here:
         this.dispose();
-    }//GEN-LAST:event_brnCerrarActionPerformed
+    }//GEN-LAST:event_btnCerrarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton brnCerrar;
+    private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnDetalle;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JScrollPane scrLista;

@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -214,6 +215,34 @@ public class AlumnoData {
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public List<Alumno> obtenerTodosLosAlumnos() {
+        String sql = "SELECT * FROM alumno";
+        List<Alumno> resultado = new ArrayList<>();
+        try (PreparedStatement ps = conectado.prepareStatement(sql)) {
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Alumno a = new Alumno();
+                    a.setIdAlumno(rs.getInt("idAlumno"));
+                    a.setDni(rs.getString("dni"));
+                    a.setNombre(rs.getString("nombre"));
+                    a.setApellido(rs.getString("apellido"));
+                    a.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
+                    a.setEstado(rs.getBoolean("estado"));
+                    resultado.add(a);
+                }
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Hubo un problema al obtener los alumnos",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            ex.printStackTrace();
+        }
+        return resultado;
     }
 
 }
