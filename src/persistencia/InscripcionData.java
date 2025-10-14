@@ -34,7 +34,7 @@ public class InscripcionData {
             PreparedStatement ps = conectado.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, insc.getAlumno().getIdAlumno());
             ps.setInt(2, insc.getMateria().getIdMateria());
-            ps.setDouble(3, insc.getNota());
+            ps.setInt(3, insc.getNota());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -51,12 +51,12 @@ public class InscripcionData {
 
     }
 
-    public void actualizarNota(int idAlumno, int idMateria, double nota) {
+    public void actualizarNota(int idAlumno, int idMateria, int nota) {
         String sql = "UPDATE inscripcion SET nota = ? WHERE idAlumno = ? and idMateria = ?";
 
         try {
             PreparedStatement ps = conectado.prepareStatement(sql);
-            ps.setDouble(1, nota);
+            ps.setInt(1, nota);
             ps.setInt(2, idAlumno);
             ps.setInt(3, idMateria);
             int result = ps.executeUpdate();
@@ -115,7 +115,7 @@ public class InscripcionData {
             ps.close();
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error en la taqbla");
+            JOptionPane.showMessageDialog(null, "Error en la tabla");
         }
         return cursada;
     }
@@ -144,7 +144,7 @@ public class InscripcionData {
             ps.close();
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error en la taqbla");
+            JOptionPane.showMessageDialog(null, "Error en la tabla");
         }
         return cursada;
     }
@@ -169,8 +169,34 @@ public class InscripcionData {
             ps.close();
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error en la taqbla");
+            JOptionPane.showMessageDialog(null, "Error en la tabla");
         }
         return materias;
     }
+
+    public List<Materia> obtenerMateriaSinCursar(int idAlumno) {
+
+        ArrayList<Materia> materias = new ArrayList<>();
+
+        String sql = "Select * From materia Where estado=1 And idMateria Not In "+"(Select idMateria From inscripcion Where idAlumno=?)";
+
+        try {
+            PreparedStatement ps = conectado.prepareStatement(sql);
+            ps.setInt(1, idAlumno);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Materia materia = new Materia();
+                materia.setIdMateria(rs.getInt("idMateria"));
+                materia.setNombre(rs.getString("nombre"));
+                materia.setAnio(rs.getInt("anio"));
+                materias.add(materia);
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en la tabla");
+        }
+        return materias;
+    }
+    
 }
