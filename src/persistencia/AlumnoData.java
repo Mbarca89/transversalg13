@@ -216,6 +216,28 @@ public class AlumnoData {
         }
         return null;
     }
+    
+     public Alumno obtenerAlumnoPorId(int id) {
+        String sql = "SELECT * FROM alumno WHERE id = ? LIMIT 1";
+        try (PreparedStatement ps = conectado.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Alumno a = new Alumno();
+                    a.setIdAlumno(rs.getInt("idAlumno"));
+                    a.setDni(rs.getString("dni"));
+                    a.setNombre(rs.getString("nombre"));
+                    a.setApellido(rs.getString("apellido"));
+                    a.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
+                    a.setEstado(rs.getBoolean("estado"));
+                    return a;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     public List<Alumno> obtenerTodosLosAlumnos() {
         String sql = "SELECT * FROM alumno";
