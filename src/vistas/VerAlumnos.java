@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import modelo.Alumno;
 import persistencia.AlumnoData;
+import persistencia.InscripcionData;
 
 /**
  *
@@ -19,11 +20,13 @@ public class VerAlumnos extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modeloTabla;
     private AlumnoData alumnoData;
+    private InscripcionData inscripcionData;
 
     /**
      * Creates new form VerAlumnos
      */
-    public VerAlumnos(AlumnoData alumnoData) {
+    public VerAlumnos(AlumnoData alumnoData, InscripcionData inscripcionData) {
+        this.inscripcionData = inscripcionData;
         this.alumnoData = alumnoData;
         initComponents();
 
@@ -40,7 +43,7 @@ public class VerAlumnos extends javax.swing.JInternalFrame {
                     if (fila >= 0) {
                         String dniAlumno = (String) modeloTabla.getValueAt(fila, 1);
                         Alumno alumno = alumnoData.obtenerAlumnoPorDni(String.valueOf(dniAlumno));
-                        DetalleAlumno detalle = new DetalleAlumno(alumno);
+                        DetalleAlumno detalle = new DetalleAlumno(alumno, inscripcionData);
                         getDesktopPane().add(detalle);
                         int x = (getDesktopPane().getWidth() - detalle.getWidth()) / 2;
                         int y = (getDesktopPane().getHeight() - detalle.getHeight()) / 2;
@@ -171,7 +174,7 @@ public class VerAlumnos extends javax.swing.JInternalFrame {
         if (fila >= 0) {
             String dniAlumno = (String) modeloTabla.getValueAt(fila, 1);
             Alumno alumno = alumnoData.obtenerAlumnoPorDni(String.valueOf(dniAlumno));
-            DetalleAlumno detalle = new DetalleAlumno(alumno);
+            DetalleAlumno detalle = new DetalleAlumno(alumno, inscripcionData);
             getDesktopPane().add(detalle);
             int x = (getDesktopPane().getWidth() - detalle.getWidth()) / 2;
             int y = (getDesktopPane().getHeight() - detalle.getHeight()) / 2;

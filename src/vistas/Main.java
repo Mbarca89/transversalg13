@@ -12,6 +12,7 @@ import persistencia.DbConnection;
 import persistencia.MateriaData;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import persistencia.InscripcionData;
 
 /**
  *
@@ -22,6 +23,7 @@ public class Main extends javax.swing.JFrame {
     private static DbConnection connection;
     private final AlumnoData alumnoData;
     private final MateriaData materiaData;
+    private final InscripcionData inscripcionData;
 
     /**
      * Creates new form Main
@@ -30,6 +32,7 @@ public class Main extends javax.swing.JFrame {
         connection = new DbConnection("jdbc:mariadb://localhost/universidad_gp13", "root", "");
         alumnoData = new AlumnoData(connection);
         materiaData = new MateriaData(connection);
+        inscripcionData = new InscripcionData(connection);
         initComponents();
     }
 
@@ -271,7 +274,7 @@ public class Main extends javax.swing.JFrame {
 
     private void mniVerAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniVerAlumnosActionPerformed
         // TODO add your handling code here:
-        VerAlumnos verAlumnos = new VerAlumnos(alumnoData);
+        VerAlumnos verAlumnos = new VerAlumnos(alumnoData, inscripcionData);
         abrirYCentrar(verAlumnos);
     }//GEN-LAST:event_mniVerAlumnosActionPerformed
 
