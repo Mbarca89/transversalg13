@@ -231,6 +231,11 @@ public class VistaInscripcion extends JInternalFrame {
     private void inscribirMateria() {
         int filaSeleccionada = tablaMaterias.getSelectedRow();
         Alumno alumno = (Alumno) cbAlumnos.getSelectedItem();
+        
+        if (!alumno.getEstado()) {
+            JOptionPane.showMessageDialog(this,  "El alumno esta inactivo.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         if (alumno == null || filaSeleccionada == -1) {
             JOptionPane.showMessageDialog(this, "Seleccione un alumno y una materia para inscribir.");
