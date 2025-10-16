@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class MateriaData {
 
@@ -170,20 +171,20 @@ public class MateriaData {
         }
         return out;
     }
+
     // seria donde el caso donde el profesor quiera mostrar todas las materias (activas e inactivas)//
     public List<Materia> listarTodasMaterias() {
-    String sql = "SELECT idMateria, nombre, anio, estado FROM materia ORDER BY anio, nombre";
-    List<Materia> lista = new ArrayList<>();
-    try (PreparedStatement ps = conectado.prepareStatement(sql);
-         ResultSet rs = ps.executeQuery()) {
-        while (rs.next()) {
-            lista.add(mapRow(rs));
+        String sql = "SELECT idMateria, nombre, anio, estado FROM materia ORDER BY anio, nombre";
+        List<Materia> lista = new ArrayList<>();
+        try (PreparedStatement ps = conectado.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                lista.add(mapRow(rs));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
         }
-    } catch (SQLException ex) {
-        Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+        return lista;
     }
-    return lista;
-}
 
     private Materia mapRow(ResultSet rs) throws SQLException {
         Materia m = new Materia();
@@ -209,6 +210,27 @@ public class MateriaData {
     }
 
     public Materia buscarMateria(int idMateria) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Materia materia = null;
+        String sql = "SELECT * FROM materia WHERE idMateria = ?";
+
+        try {
+            PreparedStatement ps = conectado.prepareStatement(sql);
+            ps.setInt(1, idMateria);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                materia = new Materia();
+                materia.setIdMateria(rs.getInt("idMateria"));
+                materia.setNombre(rs.getString("nombre"));
+                materia.setAnio(rs.getInt("anio"));
+                materia.setEstado(rs.getBoolean("estado"));
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar la materia: " + ex.getMessage());
+        }
+
+        return materia;
     }
 }
