@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import modelo.Alumno;
 import modelo.Materia;
@@ -72,7 +73,8 @@ public class InscripcionData {
         }
     }
 
-    public void borrarInscripcion(int idAlumno, int idMateria) {
+   
+     public void borrarInscripcion(int idAlumno, int idMateria) {
 
         String sql = "DELETE FROM inscripcion WHERE idAlumno=? and idMateria=?";
 
@@ -91,6 +93,9 @@ public class InscripcionData {
         }
 
     }
+
+    
+   
 
     public List<Inscripcion> obtenerInscripciones() {
 
@@ -197,6 +202,44 @@ public class InscripcionData {
             JOptionPane.showMessageDialog(null, "Error en la tabla");
         }
         return materias;
+    }
+
+    public void borrarInscripcionMateriaAlumno(int idAlumno, int idMateria) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void inscribirAlumno(Alumno alumno, Materia materia) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void anularInscripcion(Alumno alumno, Materia materia) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public List<Materia> obtenerMateriasInscriptas(Alumno alumno) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public List<Materia> obtenerMateriasNoInscriptas(Alumno alumno) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+   
+
+    public List<Materia> obtenerMateriasNOCursadas(int idAlumno) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public List<Materia> obtenerMateriasCursadas(int idAlumno) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void guardarInscripcion(int idAlumno, int idMateria) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public List<Materia> obtenerMateriasNoCursadas(int idAlumno) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

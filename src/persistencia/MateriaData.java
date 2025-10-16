@@ -207,4 +207,8 @@ public class MateriaData {
             return false;
         }
     }
+
+    public Materia buscarMateria(int idMateria) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

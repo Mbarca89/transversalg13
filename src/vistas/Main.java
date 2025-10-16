@@ -139,6 +139,23 @@ public class Main extends javax.swing.JFrame {
 
         mnbMenu.add(mnuMateria);
 
+mnuInscripcion = new javax.swing.JMenu();
+mniGestionarInscripcion = new javax.swing.JMenuItem();
+
+mnuInscripcion = new javax.swing.JMenu();
+mniGestionarInscripcion = new javax.swing.JMenuItem();
+
+mnuInscripcion.setText("Inscripción");
+
+mniGestionarInscripcion.setText("Gestionar Inscripciones");
+mniGestionarInscripcion.addActionListener(new java.awt.event.ActionListener() {
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+        mniGestionarInscripcionActionPerformed(evt);
+    }
+});
+mnuInscripcion.add(mniGestionarInscripcion);
+mnbMenu.add(mnuInscripcion);
+
         mnuBuscar.setText("Buscar");
 
         mniAlumnos.setText("Alumnos");
@@ -278,6 +295,14 @@ public class Main extends javax.swing.JFrame {
         abrirYCentrar(verAlumnos);
     }//GEN-LAST:event_mniVerAlumnosActionPerformed
 
+private void mniGestionarInscripcionActionPerformed(java.awt.event.ActionEvent evt) {                                                     
+    System.out.println("→ Abriendo VistaInscripcion...");
+    VistaInscripcion vi = new VistaInscripcion(alumnoData, materiaData, inscripcionData);
+    abrirYCentrar(vi);
+    System.out.println("→ VistaInscripcion añadida al escritorio");
+}
+
+
     /**
      * @param args the command line arguments
      */
@@ -314,15 +339,21 @@ public class Main extends javax.swing.JFrame {
         });
     }
 
-    private void abrirYCentrar(JInternalFrame frame) {
-        escritorio.add(frame);
-        frame.pack();
-        frame.setVisible(true);
-
-        int x = (escritorio.getWidth() - frame.getWidth()) / 2;
-        int y = (escritorio.getHeight() - frame.getHeight()) / 2;
-        frame.setLocation(x, y);
+   private void abrirYCentrar(JInternalFrame frame) {
+    escritorio.removeAll(); 
+    escritorio.repaint();
+    escritorio.add(frame);
+    frame.setVisible(true);
+    int x = (escritorio.getWidth() - frame.getWidth()) / 2;
+    int y = (escritorio.getHeight() - frame.getHeight()) / 2;
+    frame.setLocation(x, y);
+    frame.toFront();
+    try {
+        frame.setSelected(true);
+    } catch (java.beans.PropertyVetoException ex) {
+        ex.printStackTrace();
     }
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
@@ -341,5 +372,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenu mnuBuscar;
     private javax.swing.JMenu mnuMateria;
     private javax.swing.JMenu mnuSalir;
+    private javax.swing.JMenu mnuInscripcion;
+    private javax.swing.JMenuItem mniGestionarInscripcion;
     // End of variables declaration//GEN-END:variables
 }
