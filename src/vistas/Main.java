@@ -12,6 +12,7 @@ import persistencia.DbConnection;
 import persistencia.MateriaData;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import modelo.Alumno;
 import persistencia.InscripcionData;
 
 /**
@@ -56,6 +57,9 @@ public class Main extends javax.swing.JFrame {
         mnuMateria = new javax.swing.JMenu();
         mniVerMaterias = new javax.swing.JMenuItem();
         mniAgregarMateria = new javax.swing.JMenuItem();
+        mnuInscripcion = new javax.swing.JMenu();
+        mniGetionarInscripciones = new javax.swing.JMenuItem();
+        mniCargarNota = new javax.swing.JMenuItem();
         mnuBuscar = new javax.swing.JMenu();
         mniAlumnos = new javax.swing.JMenuItem();
         mniMaterias = new javax.swing.JMenuItem();
@@ -139,22 +143,30 @@ public class Main extends javax.swing.JFrame {
 
         mnbMenu.add(mnuMateria);
 
-mnuInscripcion = new javax.swing.JMenu();
-mniGestionarInscripcion = new javax.swing.JMenuItem();
+        mnuInscripcion.setText("Inscripcion");
+        mnuInscripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuInscripcionActionPerformed(evt);
+            }
+        });
 
-mnuInscripcion = new javax.swing.JMenu();
-mniGestionarInscripcion = new javax.swing.JMenuItem();
+        mniGetionarInscripciones.setText("Getionar Inscripciones");
+        mniGetionarInscripciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniGetionarInscripcionesActionPerformed(evt);
+            }
+        });
+        mnuInscripcion.add(mniGetionarInscripciones);
 
-mnuInscripcion.setText("Inscripción");
+        mniCargarNota.setText("Cargar Nota");
+        mniCargarNota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniCargarNotaActionPerformed(evt);
+            }
+        });
+        mnuInscripcion.add(mniCargarNota);
 
-mniGestionarInscripcion.setText("Gestionar Inscripciones");
-mniGestionarInscripcion.addActionListener(new java.awt.event.ActionListener() {
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-        mniGestionarInscripcionActionPerformed(evt);
-    }
-});
-mnuInscripcion.add(mniGestionarInscripcion);
-mnbMenu.add(mnuInscripcion);
+        mnbMenu.add(mnuInscripcion);
 
         mnuBuscar.setText("Buscar");
 
@@ -295,10 +307,19 @@ mnbMenu.add(mnuInscripcion);
         abrirYCentrar(verAlumnos);
     }//GEN-LAST:event_mniVerAlumnosActionPerformed
 
-private void mniGestionarInscripcionActionPerformed(java.awt.event.ActionEvent evt) {                                                     
-    VistaInscripcion vi = new VistaInscripcion(alumnoData, materiaData, inscripcionData);
-    abrirYCentrar(vi);
-}
+    private void mniGetionarInscripcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniGetionarInscripcionesActionPerformed
+       VistaInscripcion vi = new VistaInscripcion(alumnoData, materiaData, inscripcionData);
+    abrirYCentrar(vi);  // TODO add your handling code here:
+    }//GEN-LAST:event_mniGetionarInscripcionesActionPerformed
+
+    private void mniCargarNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCargarNotaActionPerformed
+       CargarNota nota = new CargarNota(alumnoData, inscripcionData);
+    abrirYCentrar(nota);  // TODO add your handling code here:
+    }//GEN-LAST:event_mniCargarNotaActionPerformed
+
+    private void mnuInscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuInscripcionActionPerformed
+         // TODO add your handling code here:
+    }//GEN-LAST:event_mnuInscripcionActionPerformed
 
 
     /**
@@ -360,7 +381,9 @@ private void mniGestionarInscripcionActionPerformed(java.awt.event.ActionEvent e
     private javax.swing.JMenuItem mniAgregarMateria;
     private javax.swing.JMenuItem mniAlumnos;
     private javax.swing.JMenuItem mniBorrar;
+    private javax.swing.JMenuItem mniCargarNota;
     private javax.swing.JMenuItem mniEstado;
+    private javax.swing.JMenuItem mniGetionarInscripciones;
     private javax.swing.JMenuItem mniMaterias;
     private javax.swing.JMenuItem mniModificar_Alumno;
     private javax.swing.JMenuItem mniSalir;
@@ -368,9 +391,8 @@ private void mniGestionarInscripcionActionPerformed(java.awt.event.ActionEvent e
     private javax.swing.JMenuItem mniVerMaterias;
     private javax.swing.JMenu mnuAlumno;
     private javax.swing.JMenu mnuBuscar;
+    private javax.swing.JMenu mnuInscripcion;
     private javax.swing.JMenu mnuMateria;
     private javax.swing.JMenu mnuSalir;
-    private javax.swing.JMenu mnuInscripcion;
-    private javax.swing.JMenuItem mniGestionarInscripcion;
     // End of variables declaration//GEN-END:variables
 }
