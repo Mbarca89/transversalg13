@@ -29,7 +29,7 @@ public class InscripcionData {
         ad = new AlumnoData(conexion);
     }
 
-    public void guardarInscripcion(Inscripcion insc) {
+    public boolean guardarInscripcion(Inscripcion insc) {
         String sql = "INSERT INTO inscripcion(idAlumno, idMateria, nota) VALUES (?, ?, ?)";
         try {
             PreparedStatement ps = conectado.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -39,20 +39,20 @@ public class InscripcionData {
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-                insc.setIdInscripcion(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "Inscripto correctamente");
+                ps.close();
+                return true;
+            } else {
+                ps.close();
+                return false;
             }
-
-            ps.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en la tabla");
-
+            return false;
         }
-
     }
 
-    public void actualizarNota(int idAlumno, int idMateria, int nota) {
+    public boolean actualizarNota(int idAlumno, int idMateria, int nota) {
         String sql = "UPDATE inscripcion SET nota = ? WHERE idAlumno = ? and idMateria = ?";
 
         try {
@@ -64,33 +64,16 @@ public class InscripcionData {
 
             if (result > 0) {
                 System.out.println("Nota actualizada para Alumno " + idAlumno + " en Materia " + idMateria);
+                return true;
             } else {
                 System.out.println("️No se encontró inscripción para ese alumno y materia.");
+                return false;
             }
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en la tabla");
+            return false;
         }
-    }
-
-    public void borrarInscripcion(int idAlumno, int idMateria) {
-
-        String sql = "DELETE FROM inscripcion WHERE idAlumno=? and idMateria=?";
-
-        try {
-            PreparedStatement ps = conectado.prepareStatement(sql);
-            ps.setInt(1, idAlumno);
-            ps.setInt(2, idMateria);
-            int result = ps.executeUpdate();
-            if (result > 0) {
-                JOptionPane.showMessageDialog(null, "Inscripcion borrada");
-            }
-            ps.close();
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error en la tabla");
-        }
-
     }
 
     public List<Inscripcion> obtenerInscripciones() {
@@ -196,7 +179,7 @@ public class InscripcionData {
         return materias;
     }
 
-    public void borrarInscripcionMateriaAlumno(int idAlumno, int idMateria) {
+    public boolean borrarInscripcionMateriaAlumno(int idAlumno, int idMateria) {
         String sql = "DELETE FROM inscripcion WHERE idAlumno = ? AND idMateria = ?";
         try {
             PreparedStatement ps = conectado.prepareStatement(sql);
@@ -205,46 +188,15 @@ public class InscripcionData {
             int filas = ps.executeUpdate();
 
             if (filas > 0) {
-                JOptionPane.showMessageDialog(null, "Inscripción eliminada correctamente.");
+                ps.close();
+                return true;
             } else {
-                JOptionPane.showMessageDialog(null, "No se encontró la inscripción a eliminar.");
+                ps.close();
+                return false;
             }
-            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al eliminar la inscripción: " + ex.getMessage());
+            return false;
         }
     }
-
-    public void inscribirAlumno(Alumno alumno, Materia materia) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void anularInscripcion(Alumno alumno, Materia materia) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public List<Materia> obtenerMateriasInscriptas(Alumno alumno) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public List<Materia> obtenerMateriasNoInscriptas(Alumno alumno) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public List<Materia> obtenerMateriasNOCursadas(int idAlumno) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public List<Materia> obtenerMateriasCursadas(int idAlumno) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void guardarInscripcion(int idAlumno, int idMateria) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public List<Materia> obtenerMateriasNoCursadas(int idAlumno) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
 }

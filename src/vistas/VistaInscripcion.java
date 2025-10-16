@@ -168,11 +168,13 @@ public class VistaInscripcion extends JInternalFrame {
 
     private void rbInscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbInscriptasActionPerformed
         // TODO add your handling code here:
+        
         cargarMateriasInscriptas();
     }//GEN-LAST:event_rbInscriptasActionPerformed
 
     private void rbNoInscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbNoInscriptasActionPerformed
         // TODO add your handling code here:
+        
         cargarMateriasNoInscriptas();
     }//GEN-LAST:event_rbNoInscriptasActionPerformed
 
@@ -182,11 +184,11 @@ public class VistaInscripcion extends JInternalFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInscribirActionPerformed
-       inscribirMateria();
+        inscribirMateria();
     }//GEN-LAST:event_btnInscribirActionPerformed
 
     private void btnAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularActionPerformed
-       anularInscripcion();
+        anularInscripcion();
     }//GEN-LAST:event_btnAnularActionPerformed
 
     private void limpiarTabla() {
@@ -202,6 +204,8 @@ public class VistaInscripcion extends JInternalFrame {
 
     private void cargarMateriasInscriptas() {
         limpiarTabla();
+        btnInscribir.setEnabled(false);
+        btnAnular.setEnabled(true);
         Alumno alumno = (Alumno) cbAlumnos.getSelectedItem();
         if (alumno != null) {
             List<Materia> lista = inscripcionData.obtenerMateriaCursada(alumno.getIdAlumno());
@@ -213,6 +217,8 @@ public class VistaInscripcion extends JInternalFrame {
 
     private void cargarMateriasNoInscriptas() {
         limpiarTabla();
+        btnInscribir.setEnabled(true);
+        btnAnular.setEnabled(false);
         Alumno alumno = (Alumno) cbAlumnos.getSelectedItem();
         if (alumno != null) {
             List<Materia> lista = inscripcionData.obtenerMateriaSinCursar(alumno.getIdAlumno());
@@ -235,9 +241,11 @@ public class VistaInscripcion extends JInternalFrame {
         Materia materia = materiaData.buscarMateria(idMateria);
 
         Inscripcion insc = new Inscripcion(alumno, materia, 0);
-        inscripcionData.guardarInscripcion(insc);
+        boolean realizado = inscripcionData.guardarInscripcion(insc);
 
-        JOptionPane.showMessageDialog(this, "Inscripción realizada correctamente.");
+        if (realizado) {
+            JOptionPane.showMessageDialog(this, "Inscripción realizada correctamente.");
+        }
         if (rbNoInscriptas.isSelected()) {
             cargarMateriasNoInscriptas();
         }
@@ -253,9 +261,11 @@ public class VistaInscripcion extends JInternalFrame {
         }
 
         int idMateria = (Integer) modelo.getValueAt(filaSeleccionada, 0);
-        inscripcionData.borrarInscripcionMateriaAlumno(alumno.getIdAlumno(), idMateria);
+        boolean realizado = inscripcionData.borrarInscripcionMateriaAlumno(alumno.getIdAlumno(), idMateria);
 
-        JOptionPane.showMessageDialog(this, "Inscripción anulada correctamente.");
+        if (realizado) {
+            JOptionPane.showMessageDialog(this, "Inscripción anulada correctamente.");
+        }
         if (rbInscriptas.isSelected()) {
             cargarMateriasInscriptas();
         }
