@@ -78,8 +78,18 @@ public class VistaInscripcion extends JInternalFrame {
         });
 
         btnInscribir.setText("Inscribir");
+        btnInscribir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInscribirActionPerformed(evt);
+            }
+        });
 
         btnAnular.setText("Anular Inscripción");
+        btnAnular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnularActionPerformed(evt);
+            }
+        });
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -170,6 +180,14 @@ public class VistaInscripcion extends JInternalFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInscribirActionPerformed
+       inscribirMateria();
+    }//GEN-LAST:event_btnInscribirActionPerformed
+
+    private void btnAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularActionPerformed
+       anularInscripcion();
+    }//GEN-LAST:event_btnAnularActionPerformed
 
     private void limpiarTabla() {
         modelo.setRowCount(0);
