@@ -218,7 +218,7 @@ public class AlumnoData {
     }
     
      public Alumno obtenerAlumnoPorId(int id) {
-        String sql = "SELECT * FROM alumno WHERE id = ? LIMIT 1";
+        String sql = "SELECT * FROM alumno WHERE idAlumno = ? LIMIT 1";
         try (PreparedStatement ps = conectado.prepareStatement(sql)) {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
