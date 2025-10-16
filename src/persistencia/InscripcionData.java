@@ -126,7 +126,6 @@ public class InscripcionData {
     }
 
     public List<Inscripcion> obtenerInscripcionAlumno(int idAlumno) {
-
         ArrayList<Inscripcion> cursada = new ArrayList<>();
 
         String sql = "SELECT * FROM inscripcion WHERE idAlumno= ?";
@@ -155,12 +154,11 @@ public class InscripcionData {
     }
 
     public List<Materia> obtenerMateriaCursada(int idAlumno) {
-
         ArrayList<Materia> materias = new ArrayList<>();
-
-        String sql = "SELECT inscripcion.idMateria, nombre, anio From inscripcion, " + " materia Where incripcion.idMateria = materia.idMateria " + " And inscripcion.idAlumno = ?";
-
+        String sql = "SELECT inscripcion.idMateria, nombre, anio From inscripcion, " + " materia Where inscripcion.idMateria = materia.idMateria " + " And inscripcion.idAlumno = ?";
         try {
+
+
             PreparedStatement ps = conectado.prepareStatement(sql);
             ps.setInt(1, idAlumno);
             ResultSet rs = ps.executeQuery();
@@ -180,10 +178,9 @@ public class InscripcionData {
     }
 
     public List<Materia> obtenerMateriaSinCursar(int idAlumno) {
-
         ArrayList<Materia> materias = new ArrayList<>();
 
-        String sql = "Select * From materia Where estado=1 And idMateria Not In "+"(Select idMateria From inscripcion Where idAlumno=?)";
+        String sql = "Select * From materia Where estado=1 AND idMateria Not In "+"(Select idMateria From inscripcion Where idAlumno=?)";
 
         try {
             PreparedStatement ps = conectado.prepareStatement(sql);

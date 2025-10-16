@@ -296,10 +296,8 @@ mnbMenu.add(mnuInscripcion);
     }//GEN-LAST:event_mniVerAlumnosActionPerformed
 
 private void mniGestionarInscripcionActionPerformed(java.awt.event.ActionEvent evt) {                                                     
-    System.out.println("→ Abriendo VistaInscripcion...");
     VistaInscripcion vi = new VistaInscripcion(alumnoData, materiaData, inscripcionData);
     abrirYCentrar(vi);
-    System.out.println("→ VistaInscripcion añadida al escritorio");
 }
 
 

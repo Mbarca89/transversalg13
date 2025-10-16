@@ -267,8 +267,4 @@ public class AlumnoData {
         return resultado;
     }
 
-    public Iterable<Alumno> listarAlumnos() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
 }
