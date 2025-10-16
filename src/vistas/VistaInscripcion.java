@@ -111,15 +111,16 @@ public class VistaInscripcion extends JInternalFrame {
 
     private void cargarComboAlumnos() {
         cbAlumnos.removeAllItems();
-        for (Alumno a : alumnoData.listarAlumnos()) {
-            cbAlumnos.addItem(a);
-        }
+        
+        for (Alumno a : alumnoData.obtenerTodosLosAlumnos()) {
+    cbAlumnos.addItem(a);
+}
     }
 
     private void buscarAlumno() {
         String texto = txtBuscarAlumno.getText().trim().toLowerCase();
         cbAlumnos.removeAllItems();
-        for (Alumno a : alumnoData.listarAlumnos()) {
+        for (Alumno a : alumnoData.obtenerTodosLosAlumnos()) {
             if (a.getNombre().toLowerCase().contains(texto) || a.getApellido().toLowerCase().contains(texto)) {
                 cbAlumnos.addItem(a);
             }
